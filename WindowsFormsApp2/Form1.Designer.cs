@@ -36,6 +36,7 @@
             this.btQuest = new System.Windows.Forms.Button();
             this.btRestore = new System.Windows.Forms.Button();
             this.tbCancel = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lbTiltle
@@ -85,6 +86,7 @@
             this.btFile.TabIndex = 1;
             this.btFile.Text = "Cập nhật từ File";
             this.btFile.UseVisualStyleBackColor = true;
+            this.btFile.Click += new System.EventHandler(this.btFile_Click);
             // 
             // btQuest
             // 
@@ -114,11 +116,19 @@
             this.tbCancel.UseVisualStyleBackColor = true;
             this.tbCancel.Click += new System.EventHandler(this.tbCancel_Click);
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(393, 305);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 3;
+            // 
             // HomePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.tbCancel);
             this.Controls.Add(this.btTest);
             this.Controls.Add(this.btRestore);
@@ -131,6 +141,7 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -144,6 +155,7 @@
         private System.Windows.Forms.Button btQuest;
         private System.Windows.Forms.Button btRestore;
         private System.Windows.Forms.Button tbCancel;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

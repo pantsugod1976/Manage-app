@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -74,6 +76,23 @@ namespace WindowsFormsApp2
             if(res == DialogResult.OK)
             {
                 this.Close();
+            }
+        }
+
+        private void btFile_Click(object sender, EventArgs e)
+        {
+            string query = "Select @@version";
+            MySqlConnection conn = MySqlUlities.GetDBMySqlConnect();
+            conn.Open();
+            MySqlCommand cmd = new MySqlCommand(query, conn);
+            cmd.Connection = conn;
+            cmd.CommandText = query;
+            using(MySqlDataReader reader = cmd.ExecuteReader())
+            {
+                while(reader.Read())
+                {
+                    textBox1.Text = reader.GetString(0);
+                }
             }
         }
     }

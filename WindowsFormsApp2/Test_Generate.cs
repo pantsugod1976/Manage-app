@@ -30,13 +30,13 @@ namespace WindowsFormsApp2
 
         private void tbCancel_Click(object sender, EventArgs e)
         {
+            this.Close();
             frm1.BtnTest.Enabled = true;
-            this.Close();  
         }
 
         private MySqlCommand QuerySQL_TN(MySqlConnection conn)
         {
-            string query_TN = "Select ID from Question where Subject = " + tbSubject.Text + " order by rand() limit " + numberChoice.Value;
+            string query_TN = "Select ID from question where Subject = \"" + tbSubject.Text + "\" && Type = 0 order by rand() limit " + numberChoice.Value;
             MySqlCommand cmd_TN = new MySqlCommand();
             cmd_TN.Connection = conn;
             cmd_TN.CommandText = query_TN;
@@ -45,7 +45,7 @@ namespace WindowsFormsApp2
 
         private MySqlCommand QuerySQL_TL(MySqlConnection conn)
         {
-            string query_TL = "Select ID from Question where Subject = " + tbSubject.Text + " order by rand() limit " + numberEssay.Value;
+            string query_TL = "Select ID from question where Subject= \"" + tbSubject.Text + "\" && Type = 1 order by rand() limit " + numberEssay.Value;
             MySqlCommand cmd_TL = new MySqlCommand();
             cmd_TL.Connection = conn;
             cmd_TL.CommandText = query_TL;

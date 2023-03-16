@@ -74,6 +74,11 @@ namespace WindowsFormsApp2
 
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void Control_test_Load(object sender, EventArgs e)
         {
             getData(cmd_TN, "Trắc nghiệm");
