@@ -32,6 +32,10 @@
             this.rbEssay = new System.Windows.Forms.RadioButton();
             this.rbChoice = new System.Windows.Forms.RadioButton();
             this.gbChoice = new System.Windows.Forms.GroupBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.rbD = new System.Windows.Forms.RadioButton();
             this.rbC = new System.Windows.Forms.RadioButton();
             this.rbB = new System.Windows.Forms.RadioButton();
@@ -68,6 +72,7 @@
             this.rbEssay.TabStop = true;
             this.rbEssay.Text = "Tự luận";
             this.rbEssay.UseVisualStyleBackColor = true;
+            this.rbEssay.CheckedChanged += new System.EventHandler(this.rbEssay_CheckedChanged);
             // 
             // rbChoice
             // 
@@ -83,6 +88,10 @@
             // 
             // gbChoice
             // 
+            this.gbChoice.Controls.Add(this.textBox4);
+            this.gbChoice.Controls.Add(this.textBox3);
+            this.gbChoice.Controls.Add(this.textBox2);
+            this.gbChoice.Controls.Add(this.textBox1);
             this.gbChoice.Controls.Add(this.rbD);
             this.gbChoice.Controls.Add(this.rbC);
             this.gbChoice.Controls.Add(this.rbB);
@@ -95,10 +104,42 @@
             this.gbChoice.Text = "gbChoice";
             this.gbChoice.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(366, 85);
+            this.textBox4.Multiline = true;
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(218, 34);
+            this.textBox4.TabIndex = 7;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(366, 28);
+            this.textBox3.Multiline = true;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(218, 34);
+            this.textBox3.TabIndex = 6;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(45, 84);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(218, 34);
+            this.textBox2.TabIndex = 5;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(45, 28);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(218, 34);
+            this.textBox1.TabIndex = 4;
+            // 
             // rbD
             // 
             this.rbD.AutoSize = true;
-            this.rbD.Location = new System.Drawing.Point(461, 85);
+            this.rbD.Location = new System.Drawing.Point(328, 85);
             this.rbD.Name = "rbD";
             this.rbD.Size = new System.Drawing.Size(33, 17);
             this.rbD.TabIndex = 2;
@@ -120,7 +161,7 @@
             // rbB
             // 
             this.rbB.AutoSize = true;
-            this.rbB.Location = new System.Drawing.Point(461, 28);
+            this.rbB.Location = new System.Drawing.Point(328, 28);
             this.rbB.Name = "rbB";
             this.rbB.Size = new System.Drawing.Size(32, 17);
             this.rbB.TabIndex = 1;
@@ -181,6 +222,7 @@
             this.btSubmit.TabIndex = 6;
             this.btSubmit.Text = "Submit";
             this.btSubmit.UseVisualStyleBackColor = true;
+            this.btSubmit.Click += new System.EventHandler(this.btSubmit_Click);
             // 
             // btCancel
             // 
@@ -190,6 +232,7 @@
             this.btCancel.TabIndex = 6;
             this.btCancel.Text = "Cancel";
             this.btCancel.UseVisualStyleBackColor = true;
+            this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
             // 
             // AddQuestion
             // 
@@ -232,5 +275,9 @@
         private System.Windows.Forms.TextBox tbSubject;
         private System.Windows.Forms.Button btSubmit;
         private System.Windows.Forms.Button btCancel;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

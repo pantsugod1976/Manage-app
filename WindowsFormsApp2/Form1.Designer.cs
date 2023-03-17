@@ -56,6 +56,7 @@
             this.btControl.TabIndex = 1;
             this.btControl.Text = "Quản lí câu hỏi";
             this.btControl.UseVisualStyleBackColor = true;
+            this.btControl.Click += new System.EventHandler(this.btControl_Click);
             // 
             // btUpdate
             // 

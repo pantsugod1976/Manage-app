@@ -16,10 +16,8 @@ namespace WindowsFormsApp2
 {
     public partial class Test_Generate : Form
     {
-        readonly HomePage frm1;
         public Test_Generate(HomePage frm)
         {
-            frm1 = frm;
             InitializeComponent();
         }
 
@@ -30,8 +28,10 @@ namespace WindowsFormsApp2
 
         private void tbCancel_Click(object sender, EventArgs e)
         {
+            HomePage homePage = new HomePage();
+            homePage.Enabled = true;
+            homePage.Show();
             this.Close();
-            frm1.BtnTest.Enabled = true;
         }
 
         private MySqlCommand QuerySQL_TN(MySqlConnection conn)

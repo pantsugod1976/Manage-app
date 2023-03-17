@@ -22,15 +22,8 @@ namespace WindowsFormsApp2
             InitializeComponent();
         }
 
-        private void Enable_btGenerate()
-        {
-            btTest.Enabled = true;
-        }
-
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            
-
             
         }
 
@@ -51,7 +44,7 @@ namespace WindowsFormsApp2
         {
             Test_Generate form = new Test_Generate(this);
             form.Show();
-            btTest.Enabled=false;
+            this.Enabled = false;
         }
 
         private void btUpdate_Click(object sender, EventArgs e)
@@ -88,6 +81,14 @@ namespace WindowsFormsApp2
         {
             AddQuestion frm = new AddQuestion();
             frm.Show();
+            this.Enabled = false;
+        }
+
+        private void btControl_Click(object sender, EventArgs e)
+        {
+            ManageQues frm = new ManageQues();
+            frm.Show();
+            this.Enabled = false;
         }
     }
 }
