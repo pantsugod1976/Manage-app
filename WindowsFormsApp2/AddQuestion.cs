@@ -36,7 +36,7 @@ namespace WindowsFormsApp2
         {
             if(rbChoice.Checked)
             {
-                gbChoice.Enabled = true;
+                
             }
         }
     }
