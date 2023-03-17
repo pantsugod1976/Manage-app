@@ -81,19 +81,13 @@ namespace WindowsFormsApp2
 
         private void btFile_Click(object sender, EventArgs e)
         {
-            string query = "Select @@version";
-            MySqlConnection conn = MySqlUlities.GetDBMySqlConnect();
-            conn.Open();
-            MySqlCommand cmd = new MySqlCommand(query, conn);
-            cmd.Connection = conn;
-            cmd.CommandText = query;
-            using(MySqlDataReader reader = cmd.ExecuteReader())
-            {
-                while(reader.Read())
-                {
-                    textBox1.Text = reader.GetString(0);
-                }
-            }
+            
+        }
+
+        private void btQuest_Click(object sender, EventArgs e)
+        {
+            AddQuestion frm = new AddQuestion();
+            frm.Show();
         }
     }
 }

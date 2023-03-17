@@ -62,6 +62,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddQuestion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddQuestion.Designer.cs">
+      <DependentUpon>AddQuestion.cs</DependentUpon>
+    </Compile>
     <Compile Include="MySqlUlities.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,6 +77,9 @@
     <Compile Include="Test_Generate.Designer.cs">
       <DependentUpon>Test_Generate.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AddQuestion.resx">
+      <DependentUpon>AddQuestion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Control_test.resx">
       <DependentUpon>Control_test.cs</DependentUpon>
     </EmbeddedResource>
