@@ -32,10 +32,10 @@
             this.rbEssay = new System.Windows.Forms.RadioButton();
             this.rbChoice = new System.Windows.Forms.RadioButton();
             this.gbChoice = new System.Windows.Forms.GroupBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbD = new System.Windows.Forms.TextBox();
+            this.tbB = new System.Windows.Forms.TextBox();
+            this.tbC = new System.Windows.Forms.TextBox();
+            this.tbA = new System.Windows.Forms.TextBox();
             this.rbD = new System.Windows.Forms.RadioButton();
             this.rbC = new System.Windows.Forms.RadioButton();
             this.rbB = new System.Windows.Forms.RadioButton();
@@ -88,10 +88,10 @@
             // 
             // gbChoice
             // 
-            this.gbChoice.Controls.Add(this.textBox4);
-            this.gbChoice.Controls.Add(this.textBox3);
-            this.gbChoice.Controls.Add(this.textBox2);
-            this.gbChoice.Controls.Add(this.textBox1);
+            this.gbChoice.Controls.Add(this.tbD);
+            this.gbChoice.Controls.Add(this.tbB);
+            this.gbChoice.Controls.Add(this.tbC);
+            this.gbChoice.Controls.Add(this.tbA);
             this.gbChoice.Controls.Add(this.rbD);
             this.gbChoice.Controls.Add(this.rbC);
             this.gbChoice.Controls.Add(this.rbB);
@@ -104,37 +104,37 @@
             this.gbChoice.Text = "gbChoice";
             this.gbChoice.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
-            // textBox4
+            // tbD
             // 
-            this.textBox4.Location = new System.Drawing.Point(366, 85);
-            this.textBox4.Multiline = true;
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(218, 34);
-            this.textBox4.TabIndex = 7;
+            this.tbD.Location = new System.Drawing.Point(366, 85);
+            this.tbD.Multiline = true;
+            this.tbD.Name = "tbD";
+            this.tbD.Size = new System.Drawing.Size(218, 34);
+            this.tbD.TabIndex = 7;
             // 
-            // textBox3
+            // tbB
             // 
-            this.textBox3.Location = new System.Drawing.Point(366, 28);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(218, 34);
-            this.textBox3.TabIndex = 6;
+            this.tbB.Location = new System.Drawing.Point(366, 28);
+            this.tbB.Multiline = true;
+            this.tbB.Name = "tbB";
+            this.tbB.Size = new System.Drawing.Size(218, 34);
+            this.tbB.TabIndex = 6;
             // 
-            // textBox2
+            // tbC
             // 
-            this.textBox2.Location = new System.Drawing.Point(45, 84);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(218, 34);
-            this.textBox2.TabIndex = 5;
+            this.tbC.Location = new System.Drawing.Point(45, 84);
+            this.tbC.Multiline = true;
+            this.tbC.Name = "tbC";
+            this.tbC.Size = new System.Drawing.Size(218, 34);
+            this.tbC.TabIndex = 5;
             // 
-            // textBox1
+            // tbA
             // 
-            this.textBox1.Location = new System.Drawing.Point(45, 28);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(218, 34);
-            this.textBox1.TabIndex = 4;
+            this.tbA.Location = new System.Drawing.Point(45, 28);
+            this.tbA.Multiline = true;
+            this.tbA.Name = "tbA";
+            this.tbA.Size = new System.Drawing.Size(218, 34);
+            this.tbA.TabIndex = 4;
             // 
             // rbD
             // 
@@ -146,6 +146,7 @@
             this.rbD.TabStop = true;
             this.rbD.Text = "D";
             this.rbD.UseVisualStyleBackColor = true;
+            this.rbD.CheckedChanged += new System.EventHandler(this.rbD_CheckedChanged);
             // 
             // rbC
             // 
@@ -157,6 +158,7 @@
             this.rbC.TabStop = true;
             this.rbC.Text = "C";
             this.rbC.UseVisualStyleBackColor = true;
+            this.rbC.CheckedChanged += new System.EventHandler(this.rbC_CheckedChanged);
             // 
             // rbB
             // 
@@ -168,6 +170,7 @@
             this.rbB.TabStop = true;
             this.rbB.Text = "B";
             this.rbB.UseVisualStyleBackColor = true;
+            this.rbB.CheckedChanged += new System.EventHandler(this.rbB_CheckedChanged);
             // 
             // rbA
             // 
@@ -179,6 +182,7 @@
             this.rbA.TabStop = true;
             this.rbA.Text = "A";
             this.rbA.UseVisualStyleBackColor = true;
+            this.rbA.CheckedChanged += new System.EventHandler(this.rbA_CheckedChanged);
             // 
             // tbDescription
             // 
@@ -275,9 +279,9 @@
         private System.Windows.Forms.TextBox tbSubject;
         private System.Windows.Forms.Button btSubmit;
         private System.Windows.Forms.Button btCancel;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tbD;
+        private System.Windows.Forms.TextBox tbB;
+        private System.Windows.Forms.TextBox tbC;
+        private System.Windows.Forms.TextBox tbA;
     }
 }
