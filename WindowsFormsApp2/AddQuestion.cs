@@ -65,7 +65,7 @@ namespace WindowsFormsApp2
                     command.Parameters.AddWithValue("@type", type.ToString());
                     command.Parameters.AddWithValue("@subject", tbSubject.Text);
                     connection.Open();
-                    if (type == false)
+                    /*if (type == false)
                     {
                         MySqlDbType.VarChar str;
                         str = tbDescription.Text;
@@ -74,7 +74,7 @@ namespace WindowsFormsApp2
                         cmd_ID.Parameters.Add("@description", str);
                         int ID_question = cmd_ID.ExecuteNonQuery();
                         Insert_Answer(connection, ID_question);
-                    }
+                    }*/
                     int result = command.ExecuteNonQuery();
                     // Check Error
                     if (result < 0)
@@ -98,7 +98,6 @@ namespace WindowsFormsApp2
         {
             this.Close();
             HomePage frm = new HomePage();
-<<<<<<< Updated upstream
             frm.Visible = true;
         }
 
@@ -120,10 +119,6 @@ namespace WindowsFormsApp2
         private void rbD_CheckedChanged(object sender, EventArgs e)
         {
             answer = 'D';
-=======
-            frm.Visible = true;
-            frm.Show();
->>>>>>> Stashed changes
         }
     }
 }
