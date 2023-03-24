@@ -98,7 +98,8 @@ namespace WindowsFormsApp2
         {
             this.Close();
             HomePage frm = new HomePage();
-            frm.Enabled = true;
+<<<<<<< Updated upstream
+            frm.Visible = true;
         }
 
         private void rbA_CheckedChanged(object sender, EventArgs e)
