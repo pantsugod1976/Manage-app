@@ -44,7 +44,7 @@ namespace WindowsFormsApp2
         {
             Test_Generate form = new Test_Generate(this);
             form.Show();
-            this.Enabled = false;
+            this.Visible = false;
         }
 
         private void btUpdate_Click(object sender, EventArgs e)
@@ -81,14 +81,14 @@ namespace WindowsFormsApp2
         {
             AddQuestion frm = new AddQuestion();
             frm.Show();
-            this.Enabled = false;
+            this.Visible = false;
         }
 
         private void btControl_Click(object sender, EventArgs e)
         {
             ManageQues frm = new ManageQues();
             frm.Show();
-            this.Enabled = false;
+            this.Visible = false;
         }
     }
 }

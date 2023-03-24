@@ -29,7 +29,7 @@ namespace WindowsFormsApp2
         private void tbCancel_Click(object sender, EventArgs e)
         {
             HomePage homePage = new HomePage();
-            homePage.Enabled = true;
+            homePage.Visible = true;
             homePage.Show();
             this.Close();
         }

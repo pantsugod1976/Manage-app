@@ -119,6 +119,10 @@ namespace WindowsFormsApp2
         private void rbD_CheckedChanged(object sender, EventArgs e)
         {
             answer = 'D';
+=======
+            frm.Visible = true;
+            frm.Show();
+>>>>>>> Stashed changes
         }
     }
 }
