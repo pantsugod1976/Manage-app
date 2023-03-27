@@ -52,14 +52,12 @@ namespace WindowsFormsApp2
             if (!btFile.Visible)
             {
                 btFile.Visible = true;
-                btQuest.Visible = true;
-                btRestore.Visible = true;
+                btQuest.Visible = true;   
             }
             else
             {
                 btFile.Visible = false;
                 btQuest.Visible = false;
-                btRestore.Visible = false;
             }
         }
 
@@ -86,9 +84,35 @@ namespace WindowsFormsApp2
 
         private void btControl_Click(object sender, EventArgs e)
         {
+            if (!btRestore.Visible)
+            {
+                btRestore.Visible = true;
+                btBackup.Visible = true;
+                btQL.Visible = true;
+            }
+            else
+            {
+                btRestore.Visible = true;
+                btBackup.Visible = true;
+                btQL.Visible = true;
+            }
+        }
+
+        private void btRestore_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void btQL_Click(object sender, EventArgs e)
+        {
             ManageQues frm = new ManageQues();
             frm.Show();
             this.Visible = false;
+        }
+
+        private void btBackup_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
