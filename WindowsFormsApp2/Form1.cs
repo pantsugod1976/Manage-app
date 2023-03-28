@@ -137,6 +137,7 @@ namespace WindowsFormsApp2
             csvFile.Flush();
             csvFile.Close();
             reader.Close();
+            return;
         }
         private void btBackup_Click(object sender, EventArgs e)
         {
