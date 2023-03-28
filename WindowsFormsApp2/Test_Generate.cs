@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using Mysqlx;
-using SQL_Connect;
 
 namespace WindowsFormsApp2
 {
@@ -54,22 +53,7 @@ namespace WindowsFormsApp2
 
         private void btGenerate_Click(object sender, EventArgs e)
         {
-            MySqlConnection conn = MySqlUlities.GetDBMySqlConnect();
-            try
-            {
-                conn.Open(); 
-            } 
-            catch(Exception ex) 
-            {
-                DialogResult res = MessageBox.Show(ex.Message, "", MessageBoxButtons.OK);
-            } 
-            MySqlCommand cmd_TN = QuerySQL_TN(conn);
-            MySqlCommand cmd_TL = QuerySQL_TL(conn);
-            MySqlCommand[] cmd = new MySqlCommand[2];
-            cmd[0] = cmd_TN;
-            cmd[1] = cmd_TL;
-            Control_test frm = new Control_test(cmd);
-            frm.Show();
+            
         }
 
         private void Test_Generate_Load(object sender, EventArgs e)

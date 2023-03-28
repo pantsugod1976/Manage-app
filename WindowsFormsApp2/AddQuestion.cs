@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SQL_Connect;
 using MySqlX;
 using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
@@ -56,36 +55,7 @@ namespace WindowsFormsApp2
 
         private void btSubmit_Click(object sender, EventArgs e)
         {
-            using (MySqlConnection connection = MySqlUlities.GetDBMySqlConnect())
-            {
-                string query = "INSERT INTO question (Description,Type,Subject) VALUES (@description,@type,@subject)";
-                using (MySqlCommand command = new MySqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@description", tbDescription.Text);
-                    command.Parameters.AddWithValue("@type", type.ToString());
-                    command.Parameters.AddWithValue("@subject", tbSubject.Text);
-                    connection.Open();
-                    /*if (type == false)
-                    {
-                        MySqlDbType.VarChar str;
-                        str = tbDescription.Text;
-                        string query_ID = "SELECT ID FROM question where Description = \"@description\"";
-                        MySqlCommand cmd_ID = new MySqlCommand(query_ID, connection);
-                        cmd_ID.Parameters.Add("@description", str);
-                        int ID_question = cmd_ID.ExecuteNonQuery();
-                        Insert_Answer(connection, ID_question);
-                    }*/
-                    int result = command.ExecuteNonQuery();
-                    // Check Error
-                    if (result < 0)
-                        Console.WriteLine("Error inserting data into Database!");
-                    else
-                    {
-                        MessageBox.Show("Successfull", "Insert data", MessageBoxButtons.OK);
-                        connection.Close();
-                    }
-                }
-            }
+            
         }
 
         private void rbEssay_CheckedChanged(object sender, EventArgs e)
@@ -120,5 +90,5 @@ namespace WindowsFormsApp2
         {
             answer = 'D';
         }
-    }
+    } 
 }

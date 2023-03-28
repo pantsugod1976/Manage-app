@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using SQL_Connect;
-
 namespace WindowsFormsApp2
 {
     internal static class Program
