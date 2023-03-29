@@ -55,7 +55,8 @@ namespace WindowsFormsApp2
 
         private void btSubmit_Click(object sender, EventArgs e)
         {
-            
+            SqlConnect sqlConnect = new SqlConnect();
+            MySqlConnection con = sqlConnect.connectSQL();
         }
 
         private void rbEssay_CheckedChanged(object sender, EventArgs e)

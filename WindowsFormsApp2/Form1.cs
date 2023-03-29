@@ -20,12 +20,15 @@ namespace WindowsFormsApp2
 {
     public partial class HomePage : Form
     {
-        public DataTable dt = new DataTable();
         public HomePage()
         {
             InitializeComponent();
         }
-
+        public MySqlConnection GetConnection()
+        {
+            SqlConnect conn = new SqlConnect();
+            return conn.connectSQL();
+        }
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             
@@ -100,7 +103,26 @@ namespace WindowsFormsApp2
 
         private void btRestore_Click(object sender, EventArgs e)
         {
-            
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.RestoreDirectory = true;
+            ofd.Title = "Browser csv file";
+            ofd.DefaultExt = "csv";
+            ofd.Filter = "csv files(*.csv)|*.csv";
+            ofd.CheckFileExists = true;
+            ofd.ShowDialog();
+            StreamReader streamReader = new StreamReader(ofd.FileName.ToString());
+            string table_name = Path.GetFileName(Path.GetDirectoryName(ofd.FileName));
+            MySqlConnection conn = GetConnection();
+            try
+            {
+                conn.Open();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Connect database", MessageBoxButtons.OK);
+                return;
+            }
+
         }
 
         private void btQL_Click(object sender, EventArgs e)
@@ -109,14 +131,8 @@ namespace WindowsFormsApp2
             frm.Show();
             this.Visible = false;
         }
-        private void WriteValue(MySqlConnection conn, string query, string table)
+        private void WriteValue(MySqlConnection conn, string FolderPath, string query, string table)
         {
-            FolderBrowserDialog choofdlog = new FolderBrowserDialog();
-            string FolderPath = "";
-            if (choofdlog.ShowDialog() == DialogResult.OK)
-            {
-                FolderPath = choofdlog.SelectedPath;
-            }
             string folderPath = FolderPath + "\\" + table;
             if (!Directory.Exists(folderPath))
             {
@@ -125,7 +141,9 @@ namespace WindowsFormsApp2
             StreamWriter csvFile = null;     //Wirter for csv file
             MySqlCommand cmd = new MySqlCommand(query, conn);
             MySqlDataReader reader = cmd.ExecuteReader();
-            csvFile = new StreamWriter(folderPath + "\\backup.csv", false, Encoding.UTF8); //Write to file ~ open file
+            DateTime today = DateTime.Today;
+            string folderName = string.Format("backup{0}_{1}_{2}.csv",today.Day.ToString(),today.Month.ToString(),today.Year.ToString());
+            csvFile = new StreamWriter(folderPath + "\\" + folderName, false, Encoding.UTF8); //Write to file ~ create file
             csvFile.WriteLine(String.Format("\"{0}\",\"{1}\",\"{2}\"," + "\"{3}\"",               //Add colume name
             reader.GetName(0), reader.GetName(1), reader.GetName(2), reader.GetName(3)));
             while (reader.Read()) //Array reader (value_col1, value_col2, value_col3)
@@ -133,15 +151,15 @@ namespace WindowsFormsApp2
                 csvFile.WriteLine(String.Format("\"{0}\",\"{1}\",\"{2}\"," + "\"{3}\"",               //Add row value
                 reader[0], reader[1], reader[2], reader[3]));
             }
-            MessageBox.Show("Export successful", "Backup database", MessageBoxButtons.OK);
             csvFile.Flush();
             csvFile.Close();
             reader.Close();
+            cmd.Dispose();
             return;
         }
         private void btBackup_Click(object sender, EventArgs e)
         {
-            MySqlConnection conn = new MySqlConnection("datasource=localhost;port=3306;username=root;password=;database=test;");
+            MySqlConnection conn = GetConnection();
             try
             {
                 conn.Open();
@@ -155,8 +173,12 @@ namespace WindowsFormsApp2
             {
                 string query = "select * from question";
                 string query_TN = "select * from trac_nghiem";
-                WriteValue(conn, query, "question");
-                WriteValue(conn, query_TN, "trac_nghiem");
+                FolderBrowserDialog choofdlog = new FolderBrowserDialog();
+                choofdlog.ShowDialog();
+                string FolderPath = choofdlog.SelectedPath;
+                WriteValue(conn, FolderPath, query, "question");
+                WriteValue(conn, FolderPath, query_TN, "trac_nghiem");
+                MessageBox.Show("Export successful in " + FolderPath, "Backup database", MessageBoxButtons.OK);
             }
             catch(Exception ex)
             {
