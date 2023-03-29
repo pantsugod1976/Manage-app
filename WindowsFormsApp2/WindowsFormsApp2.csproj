@@ -49,6 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImportData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportData.Designer.cs">
+      <DependentUpon>ImportData.cs</DependentUpon>
+    </Compile>
     <Compile Include="SqlConnect.cs" />
     <Compile Include="Control_test.cs">
       <SubType>Form</SubType>
@@ -56,11 +62,11 @@
     <Compile Include="Control_test.Designer.cs">
       <DependentUpon>Control_test.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="HomePage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="HomePage.Designer.cs">
+      <DependentUpon>HomePage.cs</DependentUpon>
     </Compile>
     <Compile Include="AddQuestion.cs">
       <SubType>Form</SubType>
@@ -88,8 +94,11 @@
     <EmbeddedResource Include="Control_test.resx">
       <DependentUpon>Control_test.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="HomePage.resx">
+      <DependentUpon>HomePage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportData.resx">
+      <DependentUpon>ImportData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

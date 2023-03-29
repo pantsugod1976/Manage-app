@@ -67,9 +67,9 @@ namespace WindowsFormsApp2
 
         private void btCancel_Click(object sender, EventArgs e)
         {
+            Form frm = Application.OpenForms["HomePage"];
+            frm.Show();
             this.Close();
-            HomePage frm = new HomePage();
-            frm.Visible = true;
         }
 
         private void rbA_CheckedChanged(object sender, EventArgs e)

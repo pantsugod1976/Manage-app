@@ -103,7 +103,7 @@ namespace WindowsFormsApp2
 
         private void btRestore_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
+            /*OpenFileDialog ofd = new OpenFileDialog();
             ofd.RestoreDirectory = true;
             ofd.Title = "Browser csv file";
             ofd.DefaultExt = "csv";
@@ -121,8 +121,10 @@ namespace WindowsFormsApp2
             {
                 MessageBox.Show(ex.Message, "Connect database", MessageBoxButtons.OK);
                 return;
-            }
-
+            }*/
+            ImportData frm = new ImportData();
+            frm.Show();
+            this.Visible = false;
         }
 
         private void btQL_Click(object sender, EventArgs e)
@@ -134,27 +136,30 @@ namespace WindowsFormsApp2
         private void WriteValue(MySqlConnection conn, string FolderPath, string query, string table)
         {
             string folderPath = FolderPath + "\\" + table;
+            int count = 0;
+            DateTime today = DateTime.Today;
             if (!Directory.Exists(folderPath))
             {
                 Directory.CreateDirectory(folderPath);
             }
             StreamWriter csvFile = null;     //Wirter for csv file
-            MySqlCommand cmd = new MySqlCommand(query, conn);
-            MySqlDataReader reader = cmd.ExecuteReader();
-            DateTime today = DateTime.Today;
-            string folderName = string.Format("backup{0}_{1}_{2}.csv",today.Day.ToString(),today.Month.ToString(),today.Year.ToString());
-            csvFile = new StreamWriter(folderPath + "\\" + folderName, false, Encoding.UTF8); //Write to file ~ create file
-            csvFile.WriteLine(String.Format("\"{0}\",\"{1}\",\"{2}\"," + "\"{3}\"",               //Add colume name
-            reader.GetName(0), reader.GetName(1), reader.GetName(2), reader.GetName(3)));
-            while (reader.Read()) //Array reader (value_col1, value_col2, value_col3)
+            using (MySqlCommand cmd = new MySqlCommand(query, conn))
             {
-                csvFile.WriteLine(String.Format("\"{0}\",\"{1}\",\"{2}\"," + "\"{3}\"",               //Add row value
-                reader[0], reader[1], reader[2], reader[3]));
+                using(MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    string folderName = string.Format("backup{0}_{1}_{2}.csv", today.Day.ToString(), today.Month.ToString(), today.Year.ToString());
+                    using (csvFile = new StreamWriter(folderPath + "\\" + folderName, false, Encoding.UTF8))
+                    {
+                        csvFile.WriteLine(String.Format("\"{0}\",\"{1}\",\"{2}\"," + "\"{3}\"",               //Add colume name
+                        reader.GetName(0), reader.GetName(1), reader.GetName(2), reader.GetName(3)));
+                        while (reader.Read())                                                                 //Array reader (value_col1, value_col2, value_col3)
+                        {
+                            csvFile.WriteLine(String.Format("\"{0}\",\"{1}\",\"{2}\"," + "\"{3}\"",           //Add row value
+                            reader[0], reader[1], reader[2], reader[3]));
+                        }
+                    }
+                }
             }
-            csvFile.Flush();
-            csvFile.Close();
-            reader.Close();
-            cmd.Dispose();
             return;
         }
         private void btBackup_Click(object sender, EventArgs e)

@@ -27,9 +27,8 @@ namespace WindowsFormsApp2
 
         private void tbCancel_Click(object sender, EventArgs e)
         {
-            HomePage homePage = new HomePage();
-            homePage.Visible = true;
-            homePage.Show();
+            Form frm = Application.OpenForms["HomePage"];
+            frm.Show();
             this.Close();
         }
 
