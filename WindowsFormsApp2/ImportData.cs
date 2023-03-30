@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,6 +50,31 @@ namespace WindowsFormsApp2
             Form frm = Application.OpenForms["HomePage"];
             frm.Show();
             this.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.RestoreDirectory = true;
+            ofd.Title = "Browser csv file";
+            ofd.DefaultExt = "csv";
+            ofd.Filter = "csv files(*.csv)|*.csv";
+            ofd.CheckFileExists = true;
+            ofd.ShowDialog();
+            StreamReader streamReader = new StreamReader(ofd.FileName.ToString());
+            string table_name = Path.GetFileName(Path.GetDirectoryName(ofd.FileName));
+            tbFile.Text = Path.GetDirectoryName(ofd.FileName);
+            MySqlConnection conn = GetConnection();
+            try
+            {
+                conn.Open();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Connect database", MessageBoxButtons.OK);
+                return;
+            }
+
         }
     }
 }

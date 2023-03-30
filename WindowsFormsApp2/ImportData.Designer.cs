@@ -35,6 +35,7 @@
             this.tbFile = new System.Windows.Forms.TextBox();
             this.btRestore = new System.Windows.Forms.Button();
             this.btCancel = new System.Windows.Forms.Button();
+            this.btFile = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lbTiltle
@@ -76,7 +77,7 @@
             // 
             this.tbFile.Location = new System.Drawing.Point(131, 164);
             this.tbFile.Name = "tbFile";
-            this.tbFile.Size = new System.Drawing.Size(421, 20);
+            this.tbFile.Size = new System.Drawing.Size(290, 20);
             this.tbFile.TabIndex = 4;
             // 
             // btRestore
@@ -98,11 +99,22 @@
             this.btCancel.UseVisualStyleBackColor = true;
             this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
             // 
+            // btFile
+            // 
+            this.btFile.Location = new System.Drawing.Point(467, 164);
+            this.btFile.Name = "btFile";
+            this.btFile.Size = new System.Drawing.Size(75, 23);
+            this.btFile.TabIndex = 6;
+            this.btFile.Text = "Browser";
+            this.btFile.UseVisualStyleBackColor = true;
+            this.btFile.Click += new System.EventHandler(this.button1_Click);
+            // 
             // ImportData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(568, 450);
+            this.Controls.Add(this.btFile);
             this.Controls.Add(this.btCancel);
             this.Controls.Add(this.btRestore);
             this.Controls.Add(this.tbFile);
@@ -127,5 +139,6 @@
         private System.Windows.Forms.TextBox tbFile;
         private System.Windows.Forms.Button btRestore;
         private System.Windows.Forms.Button btCancel;
+        private System.Windows.Forms.Button btFile;
     }
 }

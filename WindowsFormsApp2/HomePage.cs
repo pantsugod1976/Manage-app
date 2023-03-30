@@ -133,11 +133,22 @@ namespace WindowsFormsApp2
             frm.Show();
             this.Visible = false;
         }
+        private void NumberColume(MySqlConnection conn, string table)
+        {
+            string query = string.Format("SELECT COUNT(COLUMN_NAME) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_CATALOG = 'test' AND TABLE_SCHEMA = 'dbo'  AND TABLE_NAME = \'{0}\'", table);
+            MessageBox.Show(query);
+            using (MySqlCommand cmd = new MySqlCommand(query, conn))
+            {
+                int num = (int)cmd.ExecuteScalar();
+                MessageBox.Show(num.ToString());
+            }
+        }
         private void WriteValue(MySqlConnection conn, string FolderPath, string query, string table)
         {
             string folderPath = FolderPath + "\\" + table;
             int count = 0;
             DateTime today = DateTime.Today;
+            NumberColume(conn, table);
             if (!Directory.Exists(folderPath))
             {
                 Directory.CreateDirectory(folderPath);
@@ -146,7 +157,7 @@ namespace WindowsFormsApp2
             using (MySqlCommand cmd = new MySqlCommand(query, conn))
             {
                 using(MySqlDataReader reader = cmd.ExecuteReader())
-                {
+                {           
                     string folderName = string.Format("backup{0}_{1}_{2}.csv", today.Day.ToString(), today.Month.ToString(), today.Year.ToString());
                     using (csvFile = new StreamWriter(folderPath + "\\" + folderName, false, Encoding.UTF8))
                     {
