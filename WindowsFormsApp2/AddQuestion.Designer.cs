@@ -256,6 +256,7 @@
             this.tbPoint.Name = "tbPoint";
             this.tbPoint.Size = new System.Drawing.Size(137, 43);
             this.tbPoint.TabIndex = 8;
+            this.tbPoint.TextChanged += new System.EventHandler(this.tbPoint_TextChanged);
             // 
             // AddQuestion
             // 

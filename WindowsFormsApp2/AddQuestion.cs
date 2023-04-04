@@ -16,7 +16,6 @@ namespace WindowsFormsApp2
 {
     public partial class AddQuestion : Form
     {
-        private bool type;
         private char answer;
         public AddQuestion()
         {
@@ -41,26 +40,65 @@ namespace WindowsFormsApp2
         private void rbChoice_CheckedChanged(object sender, EventArgs e)
         {
             gbChoice.Visible = true;
-            type = false;
             rbA.Checked = true;
         }
 
         private void Insert_Question(MySqlConnection conn)
         {
-            if(rbChoice.Checked)
-            {
-                string query_ques = string.Format("INSERT INTO question(Noi_dung, Hoc_phan, Kieu_cau_hoi) VALUES {0}, {1}, {2}", tbDescription.Text, tbSubject.Text, rbChoice.Text);
-                string query_choice = string.Format("INSERT INTO trac_nghiem() VALUES {0}, {1}, {2}, {3}, {4}, {5}", tbA.Text, tbB.Text, tbC.Text, tbD.Text, answer);
+            string id = "";
+            string query_ques = ("INSERT INTO question(Noi_dung, Hoc_phan, Kieu_cau_hoi) VALUES (@description, @subject, @type)");
+            if (rbChoice.Checked)
+            {    
                 using (MySqlCommand cmd = new MySqlCommand(query_ques, conn))
                 {
+                    cmd.Parameters.AddWithValue("@description", tbDescription.Text);
+                    cmd.Parameters.AddWithValue("@subject", tbSubject.Text);
+                    cmd.Parameters.AddWithValue("@type", rbChoice.Text);
+                    cmd.ExecuteNonQuery();
+                }
+                using (MySqlCommand cmd = new MySqlCommand("SELECT * FROM question ORDER BY ID DESC LIMIT 1", conn))
+                {
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        reader.Read();
+                        id = reader["ID"].ToString(); 
+                    }
+                }
+                string query_TN = "INSERT INTO trac_nghiem VALUES (@ID, @A, @B, @C, @D, @answer, @point)";
+                using (MySqlCommand cmd = new MySqlCommand(query_TN, conn))
+                {
+                    cmd.Parameters.AddWithValue("@ID", id);
+                    cmd.Parameters.AddWithValue("@A", tbA.Text);
+                    cmd.Parameters.AddWithValue("@B", tbB.Text);
+                    cmd.Parameters.AddWithValue("@C", tbC.Text);
+                    cmd.Parameters.AddWithValue("@D", tbD.Text);
+                    cmd.Parameters.AddWithValue("@answer", answer);
+                    cmd.Parameters.AddWithValue("@point", tbPoint.Text);
                     cmd.ExecuteNonQuery();
                 }
             }
             else
             {
-                string query = string.Format("INSERT INTO tu_luan VALUES {0}, {1}, {2}, {3}, {4}, {5}", tbA.Text, tbB.Text, tbC.Text, tbD.Text, answer);
-                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                using (MySqlCommand cmd = new MySqlCommand(query_ques, conn))
                 {
+                    cmd.Parameters.AddWithValue("@description", tbDescription.Text);
+                    cmd.Parameters.AddWithValue("@subject", tbSubject.Text);
+                    cmd.Parameters.AddWithValue("@type", rbEssay.Text);
+                    cmd.ExecuteNonQuery();
+                }
+                using (MySqlCommand cmd = new MySqlCommand("SELECT * FROM question ORDER BY ID DESC LIMIT 1", conn))
+                {
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        reader.Read();
+                        id = reader["ID"].ToString();
+                    }
+                }
+                string query_TL = "INSERT INTO tu_luan VALUES (@ID, @point)";
+                using (MySqlCommand cmd = new MySqlCommand(query_TL, conn))
+                {
+                    cmd.Parameters.AddWithValue("@ID", id);
+                    cmd.Parameters.AddWithValue("point", tbPoint.Text);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -89,17 +127,24 @@ namespace WindowsFormsApp2
                 tbSubject.Focus();
                 return;
             }
-            
+            bool successfullyParsed = float.TryParse(tbPoint.Text, out float res);
+            if (!successfullyParsed)
+            {
+                MessageBox.Show("Diem khong hop le", "", MessageBoxButtons.OK);
+                tbPoint.Focus();
+                return;
+            }
             using (MySqlConnection con = sqlConnect.connectSQL())
             {
+                con.Open();
                 Insert_Question(con);
             }
+            MessageBox.Show("Add question successfull", "", MessageBoxButtons.OK);
         }
 
         private void rbEssay_CheckedChanged(object sender, EventArgs e)
         {
             gbChoice.Hide();
-            type = true;
         }
 
         private void btCancel_Click(object sender, EventArgs e)
@@ -127,6 +172,11 @@ namespace WindowsFormsApp2
         private void rbD_CheckedChanged(object sender, EventArgs e)
         {
             answer = 'D';
+        }
+
+        private void tbPoint_TextChanged(object sender, EventArgs e)
+        {
+
         }
     } 
 }
