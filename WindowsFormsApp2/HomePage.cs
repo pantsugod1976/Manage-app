@@ -24,11 +24,7 @@ namespace WindowsFormsApp2
         {
             InitializeComponent();
         }
-        public MySqlConnection GetConnection()
-        {
-            SqlConnect conn = new SqlConnect();
-            return conn.connectSQL();
-        }
+        SqlConnect sqlConnect = new SqlConnect();
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             
@@ -175,7 +171,7 @@ namespace WindowsFormsApp2
         }
         private void btBackup_Click(object sender, EventArgs e)
         {
-            MySqlConnection conn = GetConnection();
+            MySqlConnection conn = sqlConnect.connectSQL();
             try
             {
                 conn.Open();

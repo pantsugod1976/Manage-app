@@ -22,7 +22,7 @@ namespace WindowsFormsApp2
         {
             InitializeComponent();
         }
-
+        SqlConnect sqlConnect = new SqlConnect();
         private void groupBox2_Enter(object sender, EventArgs e)
         {
 
@@ -42,21 +42,58 @@ namespace WindowsFormsApp2
         {
             gbChoice.Visible = true;
             type = false;
+            rbA.Checked = true;
         }
 
-        private void Insert_Answer(MySqlConnection conn, int ID)
+        private void Insert_Question(MySqlConnection conn)
         {
-            string query = string.Format("INSERT INTO trac_nghiem VALUES {0}, {1}, {2}, {3}, {4}, {5}", tbA.Text, tbB.Text, tbC.Text, tbD.Text, answer);
-            using(MySqlCommand cmd = new MySqlCommand(query, conn))
+            if(rbChoice.Checked)
             {
-                cmd.ExecuteNonQuery();
+                string query_ques = string.Format("INSERT INTO question(Noi_dung, Hoc_phan, Kieu_cau_hoi) VALUES {0}, {1}, {2}", tbDescription.Text, tbSubject.Text, rbChoice.Text);
+                string query_choice = string.Format("INSERT INTO trac_nghiem() VALUES {0}, {1}, {2}, {3}, {4}, {5}", tbA.Text, tbB.Text, tbC.Text, tbD.Text, answer);
+                using (MySqlCommand cmd = new MySqlCommand(query_ques, conn))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            else
+            {
+                string query = string.Format("INSERT INTO tu_luan VALUES {0}, {1}, {2}, {3}, {4}, {5}", tbA.Text, tbB.Text, tbC.Text, tbD.Text, answer);
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
 
         private void btSubmit_Click(object sender, EventArgs e)
         {
-            SqlConnect sqlConnect = new SqlConnect();
-            MySqlConnection con = sqlConnect.connectSQL();
+            if (string.IsNullOrEmpty(tbDescription.Text))
+            {
+                MessageBox.Show("Description cannot be empty", "Error description", MessageBoxButtons.OK);
+                tbDescription.Focus();
+                return;
+            }
+            if (rbChoice.Checked)
+            {
+                if (tbA.Text == "" || tbB.Text == "" || tbC.Text == "" || tbD.Text == "")
+                {
+                    MessageBox.Show("Empty choice", "", MessageBoxButtons.OK);
+                    tbA.Focus();
+                    return;
+                }
+            }
+            if (string.IsNullOrEmpty(tbSubject.Text))
+            {
+                MessageBox.Show("Subject cannot be empty", "Error subject", MessageBoxButtons.OK);
+                tbSubject.Focus();
+                return;
+            }
+            
+            using (MySqlConnection con = sqlConnect.connectSQL())
+            {
+                Insert_Question(con);
+            }
         }
 
         private void rbEssay_CheckedChanged(object sender, EventArgs e)

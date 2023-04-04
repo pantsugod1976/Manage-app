@@ -46,6 +46,8 @@
             this.tbSubject = new System.Windows.Forms.TextBox();
             this.btSubmit = new System.Windows.Forms.Button();
             this.btCancel = new System.Windows.Forms.Button();
+            this.lbPoint = new System.Windows.Forms.Label();
+            this.tbPoint = new System.Windows.Forms.TextBox();
             this.gbType.SuspendLayout();
             this.gbChoice.SuspendLayout();
             this.SuspendLayout();
@@ -238,11 +240,30 @@
             this.btCancel.UseVisualStyleBackColor = true;
             this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
             // 
+            // lbPoint
+            // 
+            this.lbPoint.AutoSize = true;
+            this.lbPoint.Location = new System.Drawing.Point(676, 276);
+            this.lbPoint.Name = "lbPoint";
+            this.lbPoint.Size = new System.Drawing.Size(31, 13);
+            this.lbPoint.TabIndex = 7;
+            this.lbPoint.Text = "Điểm";
+            // 
+            // tbPoint
+            // 
+            this.tbPoint.Location = new System.Drawing.Point(679, 297);
+            this.tbPoint.Multiline = true;
+            this.tbPoint.Name = "tbPoint";
+            this.tbPoint.Size = new System.Drawing.Size(137, 43);
+            this.tbPoint.TabIndex = 8;
+            // 
             // AddQuestion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(842, 450);
+            this.Controls.Add(this.tbPoint);
+            this.Controls.Add(this.lbPoint);
             this.Controls.Add(this.btCancel);
             this.Controls.Add(this.btSubmit);
             this.Controls.Add(this.tbSubject);
@@ -283,5 +304,7 @@
         private System.Windows.Forms.TextBox tbB;
         private System.Windows.Forms.TextBox tbC;
         private System.Windows.Forms.TextBox tbA;
+        private System.Windows.Forms.Label lbPoint;
+        private System.Windows.Forms.TextBox tbPoint;
     }
 }
