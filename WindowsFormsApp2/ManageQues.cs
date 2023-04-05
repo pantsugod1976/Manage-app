@@ -33,14 +33,15 @@ namespace WindowsFormsApp2
                 }
                 dataGridView.DataSource = table;
             }
-            DataGridViewButtonColumn col = new DataGridViewButtonColumn();
-            col.UseColumnTextForButtonValue = true;
-            col.Text = "Detail";
-            col.Name = "Chi tiet";
-            dataGridView.Columns.Add(col);
-            col.Text = "Delete";
-            col.Name = "Xoa";
-            dataGridView.Columns.Add(col);
+            DataGridViewButtonColumn col_detail = new DataGridViewButtonColumn();
+            col_detail.UseColumnTextForButtonValue = true;
+            col_detail.Text = "Detail";
+            col_detail.Name = "Chi tiet";
+            dataGridView.Columns.Add(col_detail);
+            DataGridViewButtonColumn col_delete = new DataGridViewButtonColumn();
+            col_delete.Text = "Delete";
+            col_delete.Name = "Xoa";
+            dataGridView.Columns.Add(col_delete);
         }
 
         private void button1_Click(object sender, EventArgs e)
