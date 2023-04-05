@@ -20,24 +20,27 @@ namespace WindowsFormsApp2
             InitializeComponent();
         }
         SqlConnect sqlConnect = new SqlConnect();
-
         private void ManageQues_Load(object sender, EventArgs e)
         {
             string query = "SELECT * FROM question";
+            DataTable table = new DataTable();
             using (MySqlConnection conn = sqlConnect.connectSQL())
             {
                 conn.Open();
-                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                using (MySqlDataAdapter adapter = new MySqlDataAdapter(query, conn))
                 {
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-
-                        }
-                    }
+                    adapter.Fill(table);
                 }
+                dataGridView.DataSource = table;
             }
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form frm = Application.OpenForms["HomePage"];
+            frm.Show();
+            this.Close();
         }
     }
 
