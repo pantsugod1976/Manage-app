@@ -33,8 +33,14 @@ namespace WindowsFormsApp2
                 }
                 dataGridView.DataSource = table;
             }
-            DataGridViewColumn newCol = new DataGridViewColumn();
-
+            DataGridViewButtonColumn col = new DataGridViewButtonColumn();
+            col.UseColumnTextForButtonValue = true;
+            col.Text = "Detail";
+            col.Name = "Chi tiet";
+            dataGridView.Columns.Add(col);
+            col.Text = "Delete";
+            col.Name = "Xoa";
+            dataGridView.Columns.Add(col);
         }
 
         private void button1_Click(object sender, EventArgs e)
