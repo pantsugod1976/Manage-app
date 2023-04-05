@@ -33,6 +33,7 @@ namespace WindowsFormsApp2
                 }
                 dataGridView.DataSource = table;
             }
+            DataGridViewColumn newCol = new DataGridViewColumn();
 
         }
 
