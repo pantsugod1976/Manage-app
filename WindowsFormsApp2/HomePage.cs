@@ -79,7 +79,7 @@ namespace WindowsFormsApp2
         {
             AddQuestion frm = new AddQuestion();
             frm.Show();
-            this.Visible = false;
+            this.Hide();
         }
 
         private void btControl_Click(object sender, EventArgs e)
@@ -128,7 +128,7 @@ namespace WindowsFormsApp2
         {
             ManageQues frm = new ManageQues();
             frm.Show();
-            this.Visible = false;
+            this.Hide();
         }
         private void NumberColume(MySqlConnection conn, string table)
         {

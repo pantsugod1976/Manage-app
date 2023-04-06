@@ -49,6 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ques_detail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ques_detail.Designer.cs">
+      <DependentUpon>Ques_detail.cs</DependentUpon>
+    </Compile>
     <Compile Include="ImportData.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,6 +118,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Ques_detail.resx">
+      <DependentUpon>Ques_detail.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Test_Generate.resx">
       <DependentUpon>Test_Generate.cs</DependentUpon>
     </EmbeddedResource>

@@ -89,8 +89,7 @@ namespace WindowsFormsApp2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form frm = Application.OpenForms["HomePage"];
-            frm.Show();
+            Application.OpenForms["HomePage"].Show();
             this.Close();
         }
 
@@ -102,6 +101,35 @@ namespace WindowsFormsApp2
         private void btSearch_Click(object sender, EventArgs e)
         {
             
+        }
+
+        private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+        private void DeleteRecord(int i)
+        {
+
+        }
+        private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var grid = (DataGridView)sender;
+            if(e.RowIndex < 0)   //header column
+            {
+                return;
+            }
+            if(e.ColumnIndex == dataGridView.Columns["Chi tiet"].Index) 
+            {
+                string id = dataGridView.Rows[e.RowIndex].Cells[dataGridView.Columns["ID"].Index].Value.ToString();
+                string type = dataGridView.Rows[e.RowIndex].Cells[dataGridView.Columns["Kieu_cau_hoi"].Index].Value.ToString();
+                Ques_detail frm = new Ques_detail(id, type);
+                frm.Show();
+                this.Hide();
+            }
+            if (e.ColumnIndex == dataGridView.Columns["Xoa"].Index)
+            {
+                DeleteRecord(e.RowIndex);
+            }
         }
     }
 
