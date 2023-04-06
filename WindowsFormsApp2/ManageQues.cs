@@ -20,10 +20,10 @@ namespace WindowsFormsApp2
             InitializeComponent();
         }
         SqlConnect sqlConnect = new SqlConnect();
-        private void ManageQues_Load(object sender, EventArgs e)
+        DataTable table = new DataTable();
+        private void Generate_Table()
         {
-            string query = "SELECT * FROM question";
-            DataTable table = new DataTable();
+            string query = "SELECT * FROM question";          
             using (MySqlConnection conn = sqlConnect.connectSQL())
             {
                 conn.Open();
@@ -39,9 +39,52 @@ namespace WindowsFormsApp2
             col_detail.Name = "Chi tiet";
             dataGridView.Columns.Add(col_detail);
             DataGridViewButtonColumn col_delete = new DataGridViewButtonColumn();
+            col_delete.UseColumnTextForButtonValue = true;
             col_delete.Text = "Delete";
             col_delete.Name = "Xoa";
             dataGridView.Columns.Add(col_delete);
+        }
+        private void CB_Subject()
+        {
+            string query = "SELECT DISTINCT Hoc_phan FROM question";
+            using (MySqlConnection conn = sqlConnect.connectSQL())
+            {
+                conn.Open();
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                   using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            cbSubject.Items.Add(reader["Hoc_phan"].ToString());
+                        }
+                    }
+                }                
+            }
+        }
+        private void CB_Type()
+        {
+            string query = "SELECT DISTINCT Kieu_cau_hoi FROM question";
+            using (MySqlConnection conn = sqlConnect.connectSQL())
+            {
+                conn.Open();
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            cbType.Items.Add(reader["Kieu_cau_hoi"].ToString());
+                        }
+                    }
+                }
+            }
+        }
+        private void ManageQues_Load(object sender, EventArgs e)
+        {
+            Generate_Table();
+            CB_Subject();
+            CB_Type();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -49,6 +92,16 @@ namespace WindowsFormsApp2
             Form frm = Application.OpenForms["HomePage"];
             frm.Show();
             this.Close();
+        }
+
+        private void tbSearch_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btSearch_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 

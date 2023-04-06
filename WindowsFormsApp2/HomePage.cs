@@ -62,11 +62,12 @@ namespace WindowsFormsApp2
 
         private void tbCancel_Click(object sender, EventArgs e)
         {
-            DialogResult res = MessageBox.Show("Bạn có muốn thoát chương trình?", "", MessageBoxButtons.OKCancel);
+            /*DialogResult res = MessageBox.Show("Bạn có muốn thoát chương trình?", "", MessageBoxButtons.OKCancel);
             if(res == DialogResult.OK)
             {
                 this.Close();
-            }
+            }*/
+            this.Close();
         }
 
         private void btFile_Click(object sender, EventArgs e)
