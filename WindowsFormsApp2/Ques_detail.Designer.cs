@@ -45,18 +45,16 @@
             this.lbPoint = new System.Windows.Forms.Label();
             this.gbChoice = new System.Windows.Forms.GroupBox();
             this.rbA = new System.Windows.Forms.RadioButton();
-            this.rbEssay = new System.Windows.Forms.RadioButton();
-            this.rbChoice = new System.Windows.Forms.RadioButton();
-            this.gbType = new System.Windows.Forms.GroupBox();
+            this.lbType = new System.Windows.Forms.Label();
+            this.tbType = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.gbChoice.SuspendLayout();
-            this.gbType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // tbPoint
             // 
-            this.tbPoint.Location = new System.Drawing.Point(679, 306);
+            this.tbPoint.Location = new System.Drawing.Point(679, 272);
             this.tbPoint.Multiline = true;
             this.tbPoint.Name = "tbPoint";
             this.tbPoint.Size = new System.Drawing.Size(137, 43);
@@ -83,7 +81,7 @@
             // 
             // tbSubject
             // 
-            this.tbSubject.Location = new System.Drawing.Point(679, 196);
+            this.tbSubject.Location = new System.Drawing.Point(679, 160);
             this.tbSubject.Multiline = true;
             this.tbSubject.Name = "tbSubject";
             this.tbSubject.Size = new System.Drawing.Size(137, 45);
@@ -135,7 +133,7 @@
             // lbSubject
             // 
             this.lbSubject.AutoSize = true;
-            this.lbSubject.Location = new System.Drawing.Point(676, 171);
+            this.lbSubject.Location = new System.Drawing.Point(676, 129);
             this.lbSubject.Name = "lbSubject";
             this.lbSubject.Size = new System.Drawing.Size(54, 13);
             this.lbSubject.TabIndex = 13;
@@ -183,7 +181,7 @@
             // lbPoint
             // 
             this.lbPoint.AutoSize = true;
-            this.lbPoint.Location = new System.Drawing.Point(676, 285);
+            this.lbPoint.Location = new System.Drawing.Point(676, 245);
             this.lbPoint.Name = "lbPoint";
             this.lbPoint.Size = new System.Drawing.Size(31, 13);
             this.lbPoint.TabIndex = 17;
@@ -217,53 +215,39 @@
             this.rbA.Text = "A";
             this.rbA.UseVisualStyleBackColor = true;
             // 
-            // rbEssay
+            // lbType
             // 
-            this.rbEssay.AutoSize = true;
-            this.rbEssay.Location = new System.Drawing.Point(6, 81);
-            this.rbEssay.Name = "rbEssay";
-            this.rbEssay.Size = new System.Drawing.Size(61, 17);
-            this.rbEssay.TabIndex = 0;
-            this.rbEssay.TabStop = true;
-            this.rbEssay.Text = "Tự luận";
-            this.rbEssay.UseVisualStyleBackColor = true;
+            this.lbType.AutoSize = true;
+            this.lbType.Location = new System.Drawing.Point(679, 21);
+            this.lbType.Name = "lbType";
+            this.lbType.Size = new System.Drawing.Size(66, 13);
+            this.lbType.TabIndex = 19;
+            this.lbType.Text = "Kiểu câu hỏi";
             // 
-            // rbChoice
+            // tbType
             // 
-            this.rbChoice.AutoSize = true;
-            this.rbChoice.Location = new System.Drawing.Point(6, 26);
-            this.rbChoice.Name = "rbChoice";
-            this.rbChoice.Size = new System.Drawing.Size(84, 17);
-            this.rbChoice.TabIndex = 0;
-            this.rbChoice.TabStop = true;
-            this.rbChoice.Text = "Trắc nghiệm";
-            this.rbChoice.UseVisualStyleBackColor = true;
-            // 
-            // gbType
-            // 
-            this.gbType.Controls.Add(this.rbEssay);
-            this.gbType.Controls.Add(this.rbChoice);
-            this.gbType.Location = new System.Drawing.Point(679, 21);
-            this.gbType.Name = "gbType";
-            this.gbType.Size = new System.Drawing.Size(151, 131);
-            this.gbType.TabIndex = 9;
-            this.gbType.TabStop = false;
-            this.gbType.Text = "Type";
+            this.tbType.Location = new System.Drawing.Point(679, 46);
+            this.tbType.Multiline = true;
+            this.tbType.Name = "tbType";
+            this.tbType.Size = new System.Drawing.Size(137, 38);
+            this.tbType.TabIndex = 20;
             // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(16, 369);
+            this.dataGridView1.Location = new System.Drawing.Point(57, 530);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(501, 242);
-            this.dataGridView1.TabIndex = 19;
+            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
+            this.dataGridView1.TabIndex = 21;
             // 
             // Ques_detail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1138, 623);
+            this.ClientSize = new System.Drawing.Size(1136, 744);
             this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.tbType);
+            this.Controls.Add(this.lbType);
             this.Controls.Add(this.tbPoint);
             this.Controls.Add(this.btCancel);
             this.Controls.Add(this.btSubmit);
@@ -273,14 +257,11 @@
             this.Controls.Add(this.tbDescription);
             this.Controls.Add(this.lbPoint);
             this.Controls.Add(this.gbChoice);
-            this.Controls.Add(this.gbType);
             this.Name = "Ques_detail";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Ques_detail_Load);
             this.gbChoice.ResumeLayout(false);
             this.gbChoice.PerformLayout();
-            this.gbType.ResumeLayout(false);
-            this.gbType.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -306,9 +287,8 @@
         private System.Windows.Forms.Label lbPoint;
         private System.Windows.Forms.GroupBox gbChoice;
         private System.Windows.Forms.RadioButton rbA;
-        private System.Windows.Forms.RadioButton rbEssay;
-        private System.Windows.Forms.RadioButton rbChoice;
-        private System.Windows.Forms.GroupBox gbType;
+        private System.Windows.Forms.Label lbType;
+        private System.Windows.Forms.TextBox tbType;
         private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

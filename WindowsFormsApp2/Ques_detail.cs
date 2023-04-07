@@ -21,14 +21,7 @@ namespace WindowsFormsApp2
             InitializeComponent();
             Int32.TryParse(id, out ID);
             type = t;
-            if (type.Equals(rbChoice.Text))
-            {
-                rbChoice.Checked = true;
-            }
-            else
-            {
-                rbEssay.Checked = true;
-            }
+            tbType.Text = type;
         }
 
         private void btCancel_Click(object sender, EventArgs e)
@@ -40,12 +33,12 @@ namespace WindowsFormsApp2
         private void getDetail()
         {
             string query;
-            if (type.Equals("Trac nghiem"))
+            if (type.Equals("Trắc nghiệm"))
             {
                 query = "SELECT question.Noi_dung, question.Hoc_phan, question.Kieu_cau_hoi, " +
                     "trac_nghiem.A, trac_nghiem.B, trac_nghiem.C, trac_nghiem.D, trac_nghiem.Lua_chon, trac_nghiem.Diem " +
                     "FROM question INNER JOIN trac_nghiem " +
-                    "ON trac_nghiem.ID = question.ID WHERE trac_nghiem.ID = " + ID
+                    "ON trac_nghiem.ID_question = question.ID WHERE trac_nghiem.ID_question = " + ID
                    ;
             }
             else
@@ -53,7 +46,7 @@ namespace WindowsFormsApp2
                 query = "SELECT question.Noi_dung, question.Hoc_phan, question.Kieu_cau_hoi, " +
                    "tu_luan.Diem " +
                    "FROM question LEFT JOIN tu_luan" +
-                   " ON question.ID = tu_luan.ID WHERE tu_luan.ID = " + ID
+                   " ON question.ID = tu_luan.ID_question WHERE tu_luan.ID_question = " + ID
                   ;
             }
             using (SqlConnection conn = sql.connectSQL())
@@ -61,20 +54,13 @@ namespace WindowsFormsApp2
                 conn.Open();
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        if(reader.Read())
-                        {
-                            MessageBox.Show("Success");
-                        }
-                        else
-                        {
-                            MessageBox.Show("DB");
-                        }
-                        /*tbDescription.Text = reader["Noi_dung"].ToString();
-                        tbSubject.Text = reader["Hoc_phan"].ToString();
+                   using (SqlDataReader reader = cmd.ExecuteReader())
+                   {
+                        MessageBox.Show(reader.GetString(0));
+                        //tbDescription.Text = reader.GetString(1);
+                        /*tbSubject.Text = reader["Hoc_phan"].ToString();
                         tbPoint.Text = reader["Diem"].ToString();
-                        if (rbChoice.Checked)
+                        if (tbType.Equals("Trắc nghiệm"))
                         {
                             tbA.Text = reader["A"].ToString();
                             tbB.Text = reader["B"].ToString();
@@ -96,7 +82,7 @@ namespace WindowsFormsApp2
                                     break;
                             }
                         }*/
-                    }
+                   }
                 }
             }
         }

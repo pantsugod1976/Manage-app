@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -30,15 +29,7 @@ namespace WindowsFormsApp2
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {
-            SqlConnection conn = sqlConnect.connectSQL();
-            try{
-                conn.Open();
-            }
-            catch(Exception ex) 
-            {
-                MessageBox.Show(ex.Message);
-            }
+        {           
             btFile.Visible= false;
             btQuest.Visible= false;
             btRestore.Visible= false;
