@@ -56,7 +56,10 @@ namespace WindowsFormsApp2
                 {
                    using (SqlDataReader reader = cmd.ExecuteReader())
                    {
-                        MessageBox.Show(reader.GetString(0));
+                        if (reader.HasRows)
+                        {
+                            MessageBox.Show("hello" + reader["Noi_dung"].ToString());
+                        }
                         //tbDescription.Text = reader.GetString(1);
                         /*tbSubject.Text = reader["Hoc_phan"].ToString();
                         tbPoint.Text = reader["Diem"].ToString();
