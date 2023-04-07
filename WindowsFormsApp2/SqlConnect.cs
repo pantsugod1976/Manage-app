@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MySql.Data.MySqlClient;
-using Mysqlx;
+using System.Data.SqlClient;
 
 namespace WindowsFormsApp2
 {
     internal class SqlConnect
     {
-        public MySqlConnection connectSQL()
+        public SqlConnection connectSQL()
         {
-            MySqlConnection conn = new MySqlConnection("datasource=localhost;port=3306;username=root;password=;database=test;");
+            string servername = "DESKTOP-JG4B0FR\\SQLEXPRESS";
+            string database = "test";
+            string connect_string = String.Format("server = {0}; database = {1}; integrated security = true", servername, database);
+            SqlConnection conn = new SqlConnection(connect_string);
             return conn;
         }
     }

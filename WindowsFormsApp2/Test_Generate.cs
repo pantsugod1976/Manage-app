@@ -8,8 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
-using Mysqlx;
+using System.Data.SqlClient;
 
 namespace WindowsFormsApp2
 {
@@ -32,19 +31,19 @@ namespace WindowsFormsApp2
             this.Close();
         }
 
-        private MySqlCommand QuerySQL_TN(MySqlConnection conn)
+        private SqlCommand QuerySQL_TN(SqlConnection conn)
         {
             string query_TN = "Select ID from question where Subject = \"" + tbSubject.Text + "\" && Type = 0 order by rand() limit " + numberChoice.Value;
-            MySqlCommand cmd_TN = new MySqlCommand();
+            SqlCommand cmd_TN = new SqlCommand();
             cmd_TN.Connection = conn;
             cmd_TN.CommandText = query_TN;
             return cmd_TN;
         }
 
-        private MySqlCommand QuerySQL_TL(MySqlConnection conn)
+        private SqlCommand QuerySQL_TL(SqlConnection conn)
         {
             string query_TL = "Select ID from question where Subject= \"" + tbSubject.Text + "\" && Type = 1 order by rand() limit " + numberEssay.Value;
-            MySqlCommand cmd_TL = new MySqlCommand();
+            SqlCommand cmd_TL = new SqlCommand();
             cmd_TL.Connection = conn;
             cmd_TL.CommandText = query_TL;
             return cmd_TL;

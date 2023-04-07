@@ -8,8 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
-using Mysqlx;
+using System.Data.SqlClient;
 
 namespace WindowsFormsApp2
 {
@@ -24,10 +23,10 @@ namespace WindowsFormsApp2
         private void Generate_Table()
         {
             string query = "SELECT * FROM question";          
-            using (MySqlConnection conn = sqlConnect.connectSQL())
+            using (SqlConnection conn = sqlConnect.connectSQL())
             {
                 conn.Open();
-                using (MySqlDataAdapter adapter = new MySqlDataAdapter(query, conn))
+                using (SqlDataAdapter adapter = new SqlDataAdapter(query, conn))
                 {
                     adapter.Fill(table);
                 }
@@ -47,12 +46,12 @@ namespace WindowsFormsApp2
         private void CB_Subject()
         {
             string query = "SELECT DISTINCT Hoc_phan FROM question";
-            using (MySqlConnection conn = sqlConnect.connectSQL())
+            using (SqlConnection conn = sqlConnect.connectSQL())
             {
                 conn.Open();
-                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                   using (MySqlDataReader reader = cmd.ExecuteReader())
+                   using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
@@ -65,12 +64,12 @@ namespace WindowsFormsApp2
         private void CB_Type()
         {
             string query = "SELECT DISTINCT Kieu_cau_hoi FROM question";
-            using (MySqlConnection conn = sqlConnect.connectSQL())
+            using (SqlConnection conn = sqlConnect.connectSQL())
             {
                 conn.Open();
-                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {

@@ -1,7 +1,4 @@
-﻿using Microsoft.SqlServer.Server;
-using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI.Relational;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace WindowsFormsApp2
 {
@@ -58,12 +56,12 @@ namespace WindowsFormsApp2
                    " ON question.ID = tu_luan.ID WHERE tu_luan.ID = " + ID
                   ;
             }
-            using (MySqlConnection conn = sql.connectSQL())
+            using (SqlConnection conn = sql.connectSQL())
             {
                 conn.Open();
-                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         if(reader.Read())
                         {

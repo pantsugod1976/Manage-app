@@ -7,8 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySqlX;
-using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 using System.IO.Pipes;
 
@@ -43,29 +41,29 @@ namespace WindowsFormsApp2
             rbA.Checked = true;
         }
 
-        private void Insert_Question(MySqlConnection conn)
+        private void Insert_Question(SqlConnection conn)
         {
             string id = "";
             string query_ques = ("INSERT INTO question(Noi_dung, Hoc_phan, Kieu_cau_hoi) VALUES (@description, @subject, @type)");
             if (rbChoice.Checked)
             {    
-                using (MySqlCommand cmd = new MySqlCommand(query_ques, conn))
+                using (SqlCommand cmd = new SqlCommand(query_ques, conn))
                 {
                     cmd.Parameters.AddWithValue("@description", tbDescription.Text);
                     cmd.Parameters.AddWithValue("@subject", tbSubject.Text);
                     cmd.Parameters.AddWithValue("@type", rbChoice.Text);
                     cmd.ExecuteNonQuery();
                 }
-                using (MySqlCommand cmd = new MySqlCommand("SELECT * FROM question ORDER BY ID DESC LIMIT 1", conn))
+                using (SqlCommand cmd = new SqlCommand("SELECT * FROM question ORDER BY ID DESC LIMIT 1", conn))
                 {
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         reader.Read();
                         id = reader["ID"].ToString(); 
                     }
                 }
-                string query_TN = "INSERT INTO trac_nghiem VALUES (@ID, @A, @B, @C, @D, @answer, @point)";
-                using (MySqlCommand cmd = new MySqlCommand(query_TN, conn))
+                string query_TN = "INSERT INTO trac_nghiem(ID_question, A, B, C, D, Lua_chon, Diem) VALUES (@ID, @A, @B, @C, @D, @answer, @point)";
+                using (SqlCommand cmd = new SqlCommand(query_TN, conn))
                 {
                     cmd.Parameters.AddWithValue("@ID", id);
                     cmd.Parameters.AddWithValue("@A", tbA.Text);
@@ -79,23 +77,23 @@ namespace WindowsFormsApp2
             }
             else
             {
-                using (MySqlCommand cmd = new MySqlCommand(query_ques, conn))
+                using (SqlCommand cmd = new SqlCommand(query_ques, conn))
                 {
                     cmd.Parameters.AddWithValue("@description", tbDescription.Text);
                     cmd.Parameters.AddWithValue("@subject", tbSubject.Text);
                     cmd.Parameters.AddWithValue("@type", rbEssay.Text);
                     cmd.ExecuteNonQuery();
                 }
-                using (MySqlCommand cmd = new MySqlCommand("SELECT * FROM question ORDER BY ID DESC LIMIT 1", conn))
+                using (SqlCommand cmd = new SqlCommand("SELECT TOP 1 * FROM question ORDER BY ID DESC", conn)) //Chon cac record dau tien limit 1 record 
                 {
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         reader.Read();
                         id = reader["ID"].ToString();
                     }
                 }
-                string query_TL = "INSERT INTO tu_luan VALUES (@ID, @point)";
-                using (MySqlCommand cmd = new MySqlCommand(query_TL, conn))
+                string query_TL = "INSERT INTO tu_luan(ID_question, Diem) VALUES (@ID, @point)";
+                using (SqlCommand cmd = new SqlCommand(query_TL, conn))
                 {
                     cmd.Parameters.AddWithValue("@ID", id);
                     cmd.Parameters.AddWithValue("point", tbPoint.Text);
@@ -134,7 +132,7 @@ namespace WindowsFormsApp2
                 tbPoint.Focus();
                 return;
             }
-            using (MySqlConnection con = sqlConnect.connectSQL())
+            using (SqlConnection con = sqlConnect.connectSQL())
             {
                 con.Open();
                 Insert_Question(con);

@@ -1,6 +1,4 @@
-﻿using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI.Relational;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,19 +19,19 @@ namespace WindowsFormsApp2
         {
             InitializeComponent();
         }
-        public MySqlConnection GetConnection()
+        public SqlConnection GetConnection()
         {
             SqlConnect conn = new SqlConnect();
             return conn.connectSQL();
         }
         private void ImportData_Load(object sender, EventArgs e)
         {
-            using (MySqlConnection conn = GetConnection())
+            using (SqlConnection conn = GetConnection())
             {
                 conn.Open();
-                using (MySqlCommand cmd = new MySqlCommand("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE  TABLE_TYPE = 'BASE TABLE' AND TABLE_SCHEMA = 'test'", conn))
+                using (SqlCommand cmd = new SqlCommand("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE  TABLE_TYPE = 'BASE TABLE' AND TABLE_SCHEMA = 'test'", conn))
                 {
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         cbTable.Items.Clear();
                         while (reader.Read())
@@ -64,7 +62,7 @@ namespace WindowsFormsApp2
             StreamReader streamReader = new StreamReader(ofd.FileName.ToString());
             string table_name = Path.GetFileName(Path.GetDirectoryName(ofd.FileName));
             tbFile.Text = Path.GetDirectoryName(ofd.FileName);
-            MySqlConnection conn = GetConnection();
+            SqlConnection conn = GetConnection();
             try
             {
                 conn.Open();

@@ -1,6 +1,4 @@
-﻿using MySql.Data.MySqlClient;
-using Mysqlx;
-using System;
+﻿using System;
 using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Reflection.Emit;
 using System.Security.AccessControl;
@@ -32,6 +31,14 @@ namespace WindowsFormsApp2
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            SqlConnection conn = sqlConnect.connectSQL();
+            try{
+                conn.Open();
+            }
+            catch(Exception ex) 
+            {
+                MessageBox.Show(ex.Message);
+            }
             btFile.Visible= false;
             btQuest.Visible= false;
             btRestore.Visible= false;
@@ -109,7 +116,7 @@ namespace WindowsFormsApp2
             ofd.ShowDialog();
             StreamReader streamReader = new StreamReader(ofd.FileName.ToString());
             string table_name = Path.GetFileName(Path.GetDirectoryName(ofd.FileName));
-            MySqlConnection conn = GetConnection();
+            SqlConnection conn = GetConnection();
             try
             {
                 conn.Open();
@@ -130,17 +137,17 @@ namespace WindowsFormsApp2
             frm.Show();
             this.Hide();
         }
-        private void NumberColume(MySqlConnection conn, string table)
+        private void NumberColume(SqlConnection conn, string table)
         {
             string query = string.Format("SELECT COUNT(COLUMN_NAME) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_CATALOG = 'test' AND TABLE_SCHEMA = 'dbo'  AND TABLE_NAME = \'{0}\'", table);
             MessageBox.Show(query);
-            using (MySqlCommand cmd = new MySqlCommand(query, conn))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
             {
                 int num = (int)cmd.ExecuteScalar();
                 MessageBox.Show(num.ToString());
             }
         }
-        private void WriteValue(MySqlConnection conn, string FolderPath, string query, string table)
+        private void WriteValue(SqlConnection conn, string FolderPath, string query, string table)
         {
             string folderPath = FolderPath + "\\" + table;
             int count = 0;
@@ -151,9 +158,9 @@ namespace WindowsFormsApp2
                 Directory.CreateDirectory(folderPath);
             }
             StreamWriter csvFile = null;     //Wirter for csv file
-            using (MySqlCommand cmd = new MySqlCommand(query, conn))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
             {
-                using(MySqlDataReader reader = cmd.ExecuteReader())
+                using(SqlDataReader reader = cmd.ExecuteReader())
                 {           
                     string folderName = string.Format("backup{0}_{1}_{2}.csv", today.Day.ToString(), today.Month.ToString(), today.Year.ToString());
                     using (csvFile = new StreamWriter(folderPath + "\\" + folderName, false, Encoding.UTF8))
@@ -172,7 +179,7 @@ namespace WindowsFormsApp2
         }
         private void btBackup_Click(object sender, EventArgs e)
         {
-            MySqlConnection conn = sqlConnect.connectSQL();
+            SqlConnection conn = sqlConnect.connectSQL();
             try
             {
                 conn.Open();

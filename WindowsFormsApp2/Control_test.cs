@@ -7,15 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
-using Mysqlx;
+using System.Data.SqlClient;
 
 namespace WindowsFormsApp2
 {
     public partial class Control_test : Form
     {
-        private MySqlCommand cmd_TN, cmd_TL;
-        public Control_test(MySqlCommand[] cmd)
+        private SqlCommand cmd_TN, cmd_TL;
+        public Control_test(SqlCommand[] cmd)
         {
             cmd_TN = cmd[0];
             cmd_TL = cmd[1];
@@ -39,7 +38,7 @@ namespace WindowsFormsApp2
             temp.Size = new Size(size_x, size_y);
             return temp;
         }
-        private void QuestionConcept(MySqlDataReader reader)
+        private void QuestionConcept(SqlDataReader reader)
         {
             List<Label> labels= new List<Label>();
             labels[0] = CreateLabel("lbQuestion", 12, 47, 776, 53);
@@ -48,10 +47,10 @@ namespace WindowsFormsApp2
             labels[3] = CreateLabel("lb_choiceC", 12, 212, 776, 38);
             labels[4] = CreateLabel("lb_choiceD", 12, 262, 776, 38);
         }
-        private void getData(MySqlCommand cmd, string t)
+        private void getData(SqlCommand cmd, string t)
         {
             CreateTiltle(t);
-            using(MySqlDataReader reader = cmd.ExecuteReader())
+            using(SqlDataReader reader = cmd.ExecuteReader())
             {
                 if(reader.HasRows)
                 {
