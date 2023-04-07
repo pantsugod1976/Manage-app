@@ -48,8 +48,10 @@
             this.rbEssay = new System.Windows.Forms.RadioButton();
             this.rbChoice = new System.Windows.Forms.RadioButton();
             this.gbType = new System.Windows.Forms.GroupBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.gbChoice.SuspendLayout();
             this.gbType.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // tbPoint
@@ -248,11 +250,20 @@
             this.gbType.TabStop = false;
             this.gbType.Text = "Type";
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(16, 369);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(501, 242);
+            this.dataGridView1.TabIndex = 19;
+            // 
             // Ques_detail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1183, 616);
+            this.ClientSize = new System.Drawing.Size(1138, 623);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.tbPoint);
             this.Controls.Add(this.btCancel);
             this.Controls.Add(this.btSubmit);
@@ -270,6 +281,7 @@
             this.gbChoice.PerformLayout();
             this.gbType.ResumeLayout(false);
             this.gbType.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -297,5 +309,6 @@
         private System.Windows.Forms.RadioButton rbEssay;
         private System.Windows.Forms.RadioButton rbChoice;
         private System.Windows.Forms.GroupBox gbType;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

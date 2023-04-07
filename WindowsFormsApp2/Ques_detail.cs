@@ -1,4 +1,6 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.SqlServer.Server;
+using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Relational;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -42,18 +44,18 @@ namespace WindowsFormsApp2
             string query;
             if (type.Equals("Trac nghiem"))
             {
-                query = "SELECT test.Noi_dung, test.Hoc_phan, test.Kieu_cau_hoi, " +
-                    "trac_nghiem.A, trac_nghiem.B, trac_nghiem.C, trac_nghiem.D, trac_nghiem.Lua_chon, trac_nghiem.Diem" +
+                query = "SELECT question.Noi_dung, question.Hoc_phan, question.Kieu_cau_hoi, " +
+                    "trac_nghiem.A, trac_nghiem.B, trac_nghiem.C, trac_nghiem.D, trac_nghiem.Lua_chon, trac_nghiem.Diem " +
                     "FROM question INNER JOIN trac_nghiem " +
                     "ON trac_nghiem.ID = question.ID WHERE trac_nghiem.ID = " + ID
                    ;
             }
             else
             {
-                query = "SELECT test.Noi_dung, test.Hoc_phan, test.Kieu_cau_hoi, " +
-                   "tu_luan.Diem" +
+                query = "SELECT question.Noi_dung, question.Hoc_phan, question.Kieu_cau_hoi, " +
+                   "tu_luan.Diem " +
                    "FROM question LEFT JOIN tu_luan" +
-                   " ON question.ID = tu_luan.ID" //WHERE tu_luan.ID = " + ID
+                   " ON question.ID = tu_luan.ID WHERE tu_luan.ID = " + ID
                   ;
             }
             using (MySqlConnection conn = sql.connectSQL())
@@ -63,7 +65,15 @@ namespace WindowsFormsApp2
                 {
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        tbDescription.Text = reader["Noi_dung"].ToString();
+                        if(reader.Read())
+                        {
+                            MessageBox.Show("Success");
+                        }
+                        else
+                        {
+                            MessageBox.Show("DB");
+                        }
+                        /*tbDescription.Text = reader["Noi_dung"].ToString();
                         tbSubject.Text = reader["Hoc_phan"].ToString();
                         tbPoint.Text = reader["Diem"].ToString();
                         if (rbChoice.Checked)
@@ -87,7 +97,7 @@ namespace WindowsFormsApp2
                                     rbD.Checked = true;
                                     break;
                             }
-                        }
+                        }*/
                     }
                 }
             }
