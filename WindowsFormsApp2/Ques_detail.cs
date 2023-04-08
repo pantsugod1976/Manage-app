@@ -13,24 +13,14 @@ namespace WindowsFormsApp2
 {
     public partial class Ques_detail : Form
     {
-        int ID;
-        string type;
+        string ID;
         string Lua_chon;
         SqlConnect sql = new SqlConnect();
         public Ques_detail(string id, string t)
         {
             InitializeComponent();
-            Int32.TryParse(id, out ID);
-            type = t;
-            tbType.Text = type;
-            if(type == "tự luận")
-            {
-                gbChoice.Hide();
-            }
-            else
-            {
-                gbChoice.Show();
-            }
+            ID = id;
+            tbType.Text = t;
         }
 
         private void btCancel_Click(object sender, EventArgs e)
@@ -42,7 +32,7 @@ namespace WindowsFormsApp2
         private void getDetail()
         {
             string query;
-            if (type.Equals("Trắc nghiệm"))
+            if (tbType.Text == "Trắc nghiệm")
             {
                 query = "SELECT question.Noi_dung, question.Hoc_phan, question.Kieu_cau_hoi, " +
                     "trac_nghiem.A, trac_nghiem.B, trac_nghiem.C, trac_nghiem.D, trac_nghiem.Lua_chon, trac_nghiem.Diem " +
@@ -71,28 +61,13 @@ namespace WindowsFormsApp2
                             tbSubject.Text = reader["Hoc_phan"].ToString();
                             tbType.Text = reader["Kieu_cau_hoi"].ToString();
                             tbPoint.Text = reader["Diem"].ToString();
-                            if (tbType.Equals("Trắc nghiệm"))
+                            if (tbType.Text == "Trắc nghiệm")
                             {
                                 tbA.Text = reader["A"].ToString();
                                 tbB.Text = reader["B"].ToString();
                                 tbC.Text = reader["C"].ToString();
                                 tbD.Text = reader["D"].ToString();
                                 Lua_chon = reader["Lua_chon"].ToString();
-                                switch (reader["Lua_chon"].ToString())
-                                {
-                                    case "A":
-                                        rbA.Checked = true;
-                                        break;
-                                    case "B":
-                                        rbB.Checked = true;
-                                        break;
-                                    case "C":
-                                        rbC.Checked = true;
-                                        break;
-                                    case "D":
-                                        rbD.Checked = true;
-                                        break;
-                                }
                             }
                         }
                    }
@@ -101,20 +76,40 @@ namespace WindowsFormsApp2
         }
         private void Ques_detail_Load(object sender, EventArgs e)
         {
-            gbChoice.Hide();
             getDetail();
+            if(tbType.Text == "tự luận")
+                gbChoice.Hide();
+            else 
+            {
+                gbChoice.Show();
+                switch (Lua_chon)
+                {
+                    case "A":
+                        rbA.Checked = true;
+                        break;
+                    case "B":
+                        rbB.Checked = true;
+                        break;
+                    case "C":
+                        rbC.Checked = true;
+                        break;
+                    case "D":
+                        rbD.Checked = true;
+                        break;
+                }
+            }
         }
 
         private void btEdit_Click(object sender, EventArgs e)
         {
             EditQues frm;
-            if(type == "tự luận")
+            if(tbType.Text == "tự luận")
             {
-               frm = new EditQues(tbDescription.Text, tbSubject.Text, tbPoint.Text);
+               frm = new EditQues(ID, tbDescription.Text, tbSubject.Text, tbPoint.Text, tbType.Text);
             }
             else
             {
-               frm = new EditQues(tbDescription.Text, tbSubject.Text, tbPoint.Text, tbA.Text, tbB.Text, tbC.Text, tbD.Text, Lua_chon);
+               frm = new EditQues(ID, tbDescription.Text, tbSubject.Text, tbPoint.Text, tbType.Text, tbA.Text, tbB.Text, tbC.Text, tbD.Text, Lua_chon);
             }
             frm.Show();
             this.Hide();

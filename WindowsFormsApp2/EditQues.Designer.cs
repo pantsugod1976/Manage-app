@@ -29,6 +29,12 @@
         private void InitializeComponent()
         {
             this.gbGeneral = new System.Windows.Forms.GroupBox();
+            this.tbPoint = new System.Windows.Forms.TextBox();
+            this.tbSubject = new System.Windows.Forms.TextBox();
+            this.lbSubject = new System.Windows.Forms.Label();
+            this.lbPoint = new System.Windows.Forms.Label();
+            this.lbDescription = new System.Windows.Forms.Label();
+            this.tbDescription = new System.Windows.Forms.TextBox();
             this.gbChoice = new System.Windows.Forms.GroupBox();
             this.tbD = new System.Windows.Forms.TextBox();
             this.tbB = new System.Windows.Forms.TextBox();
@@ -38,25 +44,18 @@
             this.rbC = new System.Windows.Forms.RadioButton();
             this.rbB = new System.Windows.Forms.RadioButton();
             this.rbA = new System.Windows.Forms.RadioButton();
-            this.lbDescription = new System.Windows.Forms.Label();
-            this.tbDescription = new System.Windows.Forms.TextBox();
-            this.tbPoint = new System.Windows.Forms.TextBox();
-            this.tbSubject = new System.Windows.Forms.TextBox();
-            this.lbSubject = new System.Windows.Forms.Label();
-            this.lbPoint = new System.Windows.Forms.Label();
             this.btCancel = new System.Windows.Forms.Button();
             this.btSubmit = new System.Windows.Forms.Button();
-            this.rbChoice = new System.Windows.Forms.RadioButton();
-            this.rbEssay = new System.Windows.Forms.RadioButton();
-            this.gbType = new System.Windows.Forms.GroupBox();
+            this.lbType = new System.Windows.Forms.Label();
+            this.tbType = new System.Windows.Forms.TextBox();
             this.gbGeneral.SuspendLayout();
             this.gbChoice.SuspendLayout();
-            this.gbType.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbGeneral
             // 
-            this.gbGeneral.Controls.Add(this.gbType);
+            this.gbGeneral.Controls.Add(this.tbType);
+            this.gbGeneral.Controls.Add(this.lbType);
             this.gbGeneral.Controls.Add(this.tbPoint);
             this.gbGeneral.Controls.Add(this.tbSubject);
             this.gbGeneral.Controls.Add(this.lbSubject);
@@ -69,6 +68,55 @@
             this.gbGeneral.TabIndex = 0;
             this.gbGeneral.TabStop = false;
             this.gbGeneral.Text = "Thông tin chung";
+            // 
+            // tbPoint
+            // 
+            this.tbPoint.Location = new System.Drawing.Point(101, 150);
+            this.tbPoint.Name = "tbPoint";
+            this.tbPoint.Size = new System.Drawing.Size(137, 20);
+            this.tbPoint.TabIndex = 24;
+            // 
+            // tbSubject
+            // 
+            this.tbSubject.Location = new System.Drawing.Point(101, 94);
+            this.tbSubject.Name = "tbSubject";
+            this.tbSubject.Size = new System.Drawing.Size(137, 20);
+            this.tbSubject.TabIndex = 22;
+            // 
+            // lbSubject
+            // 
+            this.lbSubject.AutoSize = true;
+            this.lbSubject.Location = new System.Drawing.Point(6, 94);
+            this.lbSubject.Name = "lbSubject";
+            this.lbSubject.Size = new System.Drawing.Size(54, 13);
+            this.lbSubject.TabIndex = 21;
+            this.lbSubject.Text = "Học phần";
+            // 
+            // lbPoint
+            // 
+            this.lbPoint.AutoSize = true;
+            this.lbPoint.Location = new System.Drawing.Point(7, 150);
+            this.lbPoint.Name = "lbPoint";
+            this.lbPoint.Size = new System.Drawing.Size(31, 13);
+            this.lbPoint.TabIndex = 23;
+            this.lbPoint.Text = "Điểm";
+            // 
+            // lbDescription
+            // 
+            this.lbDescription.AutoSize = true;
+            this.lbDescription.Location = new System.Drawing.Point(3, 23);
+            this.lbDescription.Name = "lbDescription";
+            this.lbDescription.Size = new System.Drawing.Size(50, 13);
+            this.lbDescription.TabIndex = 14;
+            this.lbDescription.Text = "Nội dung";
+            // 
+            // tbDescription
+            // 
+            this.tbDescription.Location = new System.Drawing.Point(101, 23);
+            this.tbDescription.Multiline = true;
+            this.tbDescription.Name = "tbDescription";
+            this.tbDescription.Size = new System.Drawing.Size(360, 47);
+            this.tbDescription.TabIndex = 13;
             // 
             // gbChoice
             // 
@@ -129,6 +177,7 @@
             this.rbD.TabStop = true;
             this.rbD.Text = "D";
             this.rbD.UseVisualStyleBackColor = true;
+            this.rbD.CheckedChanged += new System.EventHandler(this.rbD_CheckedChanged);
             // 
             // rbC
             // 
@@ -140,6 +189,7 @@
             this.rbC.TabStop = true;
             this.rbC.Text = "C";
             this.rbC.UseVisualStyleBackColor = true;
+            this.rbC.CheckedChanged += new System.EventHandler(this.rbC_CheckedChanged);
             // 
             // rbB
             // 
@@ -151,6 +201,7 @@
             this.rbB.TabStop = true;
             this.rbB.Text = "B";
             this.rbB.UseVisualStyleBackColor = true;
+            this.rbB.CheckedChanged += new System.EventHandler(this.rbB_CheckedChanged);
             // 
             // rbA
             // 
@@ -162,55 +213,7 @@
             this.rbA.TabStop = true;
             this.rbA.Text = "A";
             this.rbA.UseVisualStyleBackColor = true;
-            // 
-            // lbDescription
-            // 
-            this.lbDescription.AutoSize = true;
-            this.lbDescription.Location = new System.Drawing.Point(3, 23);
-            this.lbDescription.Name = "lbDescription";
-            this.lbDescription.Size = new System.Drawing.Size(50, 13);
-            this.lbDescription.TabIndex = 14;
-            this.lbDescription.Text = "Nội dung";
-            // 
-            // tbDescription
-            // 
-            this.tbDescription.Location = new System.Drawing.Point(101, 23);
-            this.tbDescription.Multiline = true;
-            this.tbDescription.Name = "tbDescription";
-            this.tbDescription.Size = new System.Drawing.Size(360, 47);
-            this.tbDescription.TabIndex = 13;
-            // 
-            // tbPoint
-            // 
-            this.tbPoint.Location = new System.Drawing.Point(101, 150);
-            this.tbPoint.Name = "tbPoint";
-            this.tbPoint.Size = new System.Drawing.Size(137, 20);
-            this.tbPoint.TabIndex = 24;
-            // 
-            // tbSubject
-            // 
-            this.tbSubject.Location = new System.Drawing.Point(101, 94);
-            this.tbSubject.Name = "tbSubject";
-            this.tbSubject.Size = new System.Drawing.Size(137, 20);
-            this.tbSubject.TabIndex = 22;
-            // 
-            // lbSubject
-            // 
-            this.lbSubject.AutoSize = true;
-            this.lbSubject.Location = new System.Drawing.Point(6, 94);
-            this.lbSubject.Name = "lbSubject";
-            this.lbSubject.Size = new System.Drawing.Size(54, 13);
-            this.lbSubject.TabIndex = 21;
-            this.lbSubject.Text = "Học phần";
-            // 
-            // lbPoint
-            // 
-            this.lbPoint.AutoSize = true;
-            this.lbPoint.Location = new System.Drawing.Point(7, 150);
-            this.lbPoint.Name = "lbPoint";
-            this.lbPoint.Size = new System.Drawing.Size(31, 13);
-            this.lbPoint.TabIndex = 23;
-            this.lbPoint.Text = "Điểm";
+            this.rbA.CheckedChanged += new System.EventHandler(this.rbA_CheckedChanged);
             // 
             // btCancel
             // 
@@ -230,39 +233,24 @@
             this.btSubmit.TabIndex = 18;
             this.btSubmit.Text = "Submit";
             this.btSubmit.UseVisualStyleBackColor = true;
+            this.btSubmit.Click += new System.EventHandler(this.btSubmit_Click);
             // 
-            // rbChoice
+            // lbType
             // 
-            this.rbChoice.AutoSize = true;
-            this.rbChoice.Location = new System.Drawing.Point(6, 19);
-            this.rbChoice.Name = "rbChoice";
-            this.rbChoice.Size = new System.Drawing.Size(80, 17);
-            this.rbChoice.TabIndex = 26;
-            this.rbChoice.TabStop = true;
-            this.rbChoice.Text = "trắc nghiệm";
-            this.rbChoice.UseVisualStyleBackColor = true;
+            this.lbType.AutoSize = true;
+            this.lbType.Location = new System.Drawing.Point(6, 201);
+            this.lbType.Name = "lbType";
+            this.lbType.Size = new System.Drawing.Size(66, 13);
+            this.lbType.TabIndex = 25;
+            this.lbType.Text = "Kiểu câu hỏi";
             // 
-            // rbEssay
+            // tbType
             // 
-            this.rbEssay.AutoSize = true;
-            this.rbEssay.Location = new System.Drawing.Point(6, 56);
-            this.rbEssay.Name = "rbEssay";
-            this.rbEssay.Size = new System.Drawing.Size(57, 17);
-            this.rbEssay.TabIndex = 27;
-            this.rbEssay.TabStop = true;
-            this.rbEssay.Text = "tự luận";
-            this.rbEssay.UseVisualStyleBackColor = true;
-            // 
-            // gbType
-            // 
-            this.gbType.Controls.Add(this.rbChoice);
-            this.gbType.Controls.Add(this.rbEssay);
-            this.gbType.Location = new System.Drawing.Point(346, 94);
-            this.gbType.Name = "gbType";
-            this.gbType.Size = new System.Drawing.Size(115, 100);
-            this.gbType.TabIndex = 28;
-            this.gbType.TabStop = false;
-            this.gbType.Text = "Kiểu câu hỏi";
+            this.tbType.Location = new System.Drawing.Point(101, 194);
+            this.tbType.Name = "tbType";
+            this.tbType.ReadOnly = true;
+            this.tbType.Size = new System.Drawing.Size(137, 20);
+            this.tbType.TabIndex = 26;
             // 
             // EditQues
             // 
@@ -280,8 +268,6 @@
             this.gbGeneral.PerformLayout();
             this.gbChoice.ResumeLayout(false);
             this.gbChoice.PerformLayout();
-            this.gbType.ResumeLayout(false);
-            this.gbType.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -306,8 +292,7 @@
         private System.Windows.Forms.Label lbPoint;
         private System.Windows.Forms.Button btCancel;
         private System.Windows.Forms.Button btSubmit;
-        private System.Windows.Forms.RadioButton rbEssay;
-        private System.Windows.Forms.RadioButton rbChoice;
-        private System.Windows.Forms.GroupBox gbType;
+        private System.Windows.Forms.TextBox tbType;
+        private System.Windows.Forms.Label lbType;
     }
 }

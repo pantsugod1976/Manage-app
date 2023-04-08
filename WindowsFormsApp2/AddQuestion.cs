@@ -54,7 +54,7 @@ namespace WindowsFormsApp2
                     cmd.Parameters.AddWithValue("@type", rbChoice.Text);
                     cmd.ExecuteNonQuery();
                 }
-                using (SqlCommand cmd = new SqlCommand("SELECT * FROM question ORDER BY ID DESC LIMIT 1", conn))
+                using (SqlCommand cmd = new SqlCommand("SELECT TOP 1 * FROM question ORDER BY ID DESC", conn))
                 {
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
