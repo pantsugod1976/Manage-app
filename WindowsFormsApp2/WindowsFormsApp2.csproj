@@ -49,6 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EditQues.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditQues.Designer.cs">
+      <DependentUpon>EditQues.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ques_detail.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,6 +105,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Control_test.resx">
       <DependentUpon>Control_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditQues.resx">
+      <DependentUpon>EditQues.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HomePage.resx">
       <DependentUpon>HomePage.cs</DependentUpon>

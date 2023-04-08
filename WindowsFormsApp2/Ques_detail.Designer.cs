@@ -30,7 +30,7 @@
         {
             this.tbPoint = new System.Windows.Forms.TextBox();
             this.btCancel = new System.Windows.Forms.Button();
-            this.btSubmit = new System.Windows.Forms.Button();
+            this.btEdit = new System.Windows.Forms.Button();
             this.tbSubject = new System.Windows.Forms.TextBox();
             this.tbD = new System.Windows.Forms.TextBox();
             this.tbB = new System.Windows.Forms.TextBox();
@@ -47,9 +47,7 @@
             this.rbA = new System.Windows.Forms.RadioButton();
             this.lbType = new System.Windows.Forms.Label();
             this.tbType = new System.Windows.Forms.TextBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.gbChoice.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // tbPoint
@@ -70,14 +68,15 @@
             this.btCancel.UseVisualStyleBackColor = true;
             this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
             // 
-            // btSubmit
+            // btEdit
             // 
-            this.btSubmit.Location = new System.Drawing.Point(523, 396);
-            this.btSubmit.Name = "btSubmit";
-            this.btSubmit.Size = new System.Drawing.Size(75, 23);
-            this.btSubmit.TabIndex = 16;
-            this.btSubmit.Text = "Submit";
-            this.btSubmit.UseVisualStyleBackColor = true;
+            this.btEdit.Location = new System.Drawing.Point(607, 396);
+            this.btEdit.Name = "btEdit";
+            this.btEdit.Size = new System.Drawing.Size(75, 23);
+            this.btEdit.TabIndex = 16;
+            this.btEdit.Text = "Edit";
+            this.btEdit.UseVisualStyleBackColor = true;
+            this.btEdit.Click += new System.EventHandler(this.btEdit_Click);
             // 
             // tbSubject
             // 
@@ -202,7 +201,7 @@
             this.gbChoice.Size = new System.Drawing.Size(586, 131);
             this.gbChoice.TabIndex = 10;
             this.gbChoice.TabStop = false;
-            this.gbChoice.Text = "gbChoice";
+            this.gbChoice.Text = "Lựa chọn";
             // 
             // rbA
             // 
@@ -232,25 +231,16 @@
             this.tbType.Size = new System.Drawing.Size(137, 38);
             this.tbType.TabIndex = 20;
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(57, 530);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
-            this.dataGridView1.TabIndex = 21;
-            // 
             // Ques_detail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1136, 744);
-            this.Controls.Add(this.dataGridView1);
+            this.ClientSize = new System.Drawing.Size(851, 442);
             this.Controls.Add(this.tbType);
             this.Controls.Add(this.lbType);
             this.Controls.Add(this.tbPoint);
             this.Controls.Add(this.btCancel);
-            this.Controls.Add(this.btSubmit);
+            this.Controls.Add(this.btEdit);
             this.Controls.Add(this.tbSubject);
             this.Controls.Add(this.lbSubject);
             this.Controls.Add(this.lbDescription);
@@ -262,7 +252,6 @@
             this.Load += new System.EventHandler(this.Ques_detail_Load);
             this.gbChoice.ResumeLayout(false);
             this.gbChoice.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -272,7 +261,7 @@
 
         private System.Windows.Forms.TextBox tbPoint;
         private System.Windows.Forms.Button btCancel;
-        private System.Windows.Forms.Button btSubmit;
+        private System.Windows.Forms.Button btEdit;
         private System.Windows.Forms.TextBox tbSubject;
         private System.Windows.Forms.TextBox tbD;
         private System.Windows.Forms.TextBox tbB;
@@ -289,6 +278,5 @@
         private System.Windows.Forms.RadioButton rbA;
         private System.Windows.Forms.Label lbType;
         private System.Windows.Forms.TextBox tbType;
-        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

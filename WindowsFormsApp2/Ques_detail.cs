@@ -15,6 +15,7 @@ namespace WindowsFormsApp2
     {
         int ID;
         string type;
+        string Lua_chon;
         SqlConnect sql = new SqlConnect();
         public Ques_detail(string id, string t)
         {
@@ -22,6 +23,14 @@ namespace WindowsFormsApp2
             Int32.TryParse(id, out ID);
             type = t;
             tbType.Text = type;
+            if(type == "tự luận")
+            {
+                gbChoice.Hide();
+            }
+            else
+            {
+                gbChoice.Show();
+            }
         }
 
         private void btCancel_Click(object sender, EventArgs e)
@@ -47,7 +56,7 @@ namespace WindowsFormsApp2
                    "tu_luan.Diem " +
                    "FROM question LEFT JOIN tu_luan" +
                    " ON question.ID = tu_luan.ID_question WHERE tu_luan.ID_question = " + ID
-                  ;
+                  ;           
             }
             using (SqlConnection conn = sql.connectSQL())
             {
@@ -56,42 +65,59 @@ namespace WindowsFormsApp2
                 {
                    using (SqlDataReader reader = cmd.ExecuteReader())
                    {
-                        if (reader.HasRows)
+                        while (reader.Read())
                         {
-                            MessageBox.Show("hello" + reader["Noi_dung"].ToString());
-                        }
-                        //tbDescription.Text = reader.GetString(1);
-                        /*tbSubject.Text = reader["Hoc_phan"].ToString();
-                        tbPoint.Text = reader["Diem"].ToString();
-                        if (tbType.Equals("Trắc nghiệm"))
-                        {
-                            tbA.Text = reader["A"].ToString();
-                            tbB.Text = reader["B"].ToString();
-                            tbC.Text = reader["C"].ToString();
-                            tbD.Text = reader["D"].ToString();
-                            switch (reader["Lua_chon"].ToString())
+                            tbDescription.Text = reader["Noi_dung"].ToString();
+                            tbSubject.Text = reader["Hoc_phan"].ToString();
+                            tbType.Text = reader["Kieu_cau_hoi"].ToString();
+                            tbPoint.Text = reader["Diem"].ToString();
+                            if (tbType.Equals("Trắc nghiệm"))
                             {
-                                case "A":
-                                    rbA.Checked = true;
-                                    break;
-                                case "B":
-                                    rbB.Checked = true;
-                                    break;
-                                case "C":
-                                    rbC.Checked = true;
-                                    break;
-                                case "D":
-                                    rbD.Checked = true;
-                                    break;
+                                tbA.Text = reader["A"].ToString();
+                                tbB.Text = reader["B"].ToString();
+                                tbC.Text = reader["C"].ToString();
+                                tbD.Text = reader["D"].ToString();
+                                Lua_chon = reader["Lua_chon"].ToString();
+                                switch (reader["Lua_chon"].ToString())
+                                {
+                                    case "A":
+                                        rbA.Checked = true;
+                                        break;
+                                    case "B":
+                                        rbB.Checked = true;
+                                        break;
+                                    case "C":
+                                        rbC.Checked = true;
+                                        break;
+                                    case "D":
+                                        rbD.Checked = true;
+                                        break;
+                                }
                             }
-                        }*/
+                        }
                    }
                 }
             }
         }
         private void Ques_detail_Load(object sender, EventArgs e)
         {
+            gbChoice.Hide();
             getDetail();
+        }
+
+        private void btEdit_Click(object sender, EventArgs e)
+        {
+            EditQues frm;
+            if(type == "tự luận")
+            {
+               frm = new EditQues(tbDescription.Text, tbSubject.Text, tbPoint.Text);
+            }
+            else
+            {
+               frm = new EditQues(tbDescription.Text, tbSubject.Text, tbPoint.Text, tbA.Text, tbB.Text, tbC.Text, tbD.Text, Lua_chon);
+            }
+            frm.Show();
+            this.Hide();
         }
     }
 }
