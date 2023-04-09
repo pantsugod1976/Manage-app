@@ -20,9 +20,9 @@ namespace WindowsFormsApp2
         }
         SqlConnect sqlConnect = new SqlConnect();
         DataTable table = new DataTable();
-        private void Generate_Table()
+        private void GetData()
         {
-            string query = "SELECT * FROM question";          
+            string query = "SELECT * FROM question";
             using (SqlConnection conn = sqlConnect.connectSQL())
             {
                 conn.Open();
@@ -31,7 +31,12 @@ namespace WindowsFormsApp2
                     adapter.Fill(table);
                 }
                 dataGridView.DataSource = table;
+                
             }
+        }
+        private void Generate_Table()
+        {
+            GetData();
             DataGridViewButtonColumn col_detail = new DataGridViewButtonColumn();
             col_detail.UseColumnTextForButtonValue = true;
             col_detail.Text = "Detail";
@@ -118,14 +123,16 @@ namespace WindowsFormsApp2
                     {
                         cmd.CommandText = "BEGIN TRANSACTION;\n" +
                             "DELETE FROM question WHERE question.ID = @ID;\n\n" +
-                            "DBCC CHECKIDENT(question, reseed, @prev_ID)\r\n" +
+                            "DBCC CHECKIDENT(question, reseed, @prev_ID)\n\n" +
+                            "DBCC CHECKIDENT(tu_luan, reseed, @prev_ID)\n\n" +
                             "COMMIT;";
                     }
                     else
                     {
                         cmd.CommandText = "BEGIN TRANSACTION;\n" +
                             "DELETE FROM question WHERE question.ID = @ID;\n\n" +
-                            "DBCC CHECKIDENT(question, reseed, @prev_ID)\r\n" +
+                            "DBCC CHECKIDENT(question, reseed, @prev_ID)\n\n" +
+                            "DBCC CHECKIDENT(tu_luan, reseed, @prev_ID)\n\n" +
                             "COMMIT;";
                     }
                     cmd.Parameters.AddWithValue("@ID", ID);
@@ -137,7 +144,6 @@ namespace WindowsFormsApp2
         }
         private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            var grid = (DataGridView)sender;
             if(e.RowIndex < 0)   //header column
             {
                 return;
