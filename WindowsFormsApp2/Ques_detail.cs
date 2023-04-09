@@ -77,7 +77,7 @@ namespace WindowsFormsApp2
         private void Ques_detail_Load(object sender, EventArgs e)
         {
             getDetail();
-            if(tbType.Text == "tự luận")
+            if(tbType.Text.Equals("tự luận",StringComparison.OrdinalIgnoreCase))
                 gbChoice.Hide();
             else 
             {
@@ -103,7 +103,7 @@ namespace WindowsFormsApp2
         private void btEdit_Click(object sender, EventArgs e)
         {
             EditQues frm;
-            if(tbType.Text == "tự luận")
+            if(tbType.Text.Equals("Tự luận", StringComparison.OrdinalIgnoreCase))
             {
                frm = new EditQues(ID, tbDescription.Text, tbSubject.Text, tbPoint.Text, tbType.Text);
             }

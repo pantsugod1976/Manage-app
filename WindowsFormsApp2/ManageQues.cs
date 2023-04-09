@@ -106,9 +106,34 @@ namespace WindowsFormsApp2
         {
 
         }
-        private void DeleteRecord(int i)
+        private void DeleteRecord(string id, string type)
         {
-
+            int ID = Int32.Parse(id);
+            using (SqlConnection conn = sqlConnect.connectSQL())
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    if (type.Equals("tự luận", StringComparison.OrdinalIgnoreCase))
+                    {
+                        cmd.CommandText = "BEGIN TRANSACTION;\n" +
+                            "DELETE FROM question WHERE question.ID = @ID;\n\n" +
+                            "DBCC CHECKIDENT(question, reseed, @prev_ID)\r\n" +
+                            "COMMIT;";
+                    }
+                    else
+                    {
+                        cmd.CommandText = "BEGIN TRANSACTION;\n" +
+                            "DELETE FROM question WHERE question.ID = @ID;\n\n" +
+                            "DBCC CHECKIDENT(question, reseed, @prev_ID)\r\n" +
+                            "COMMIT;";
+                    }
+                    cmd.Parameters.AddWithValue("@ID", ID);
+                    cmd.Parameters.AddWithValue("@prev_ID", ID-1);
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Xóa thành công", "", MessageBoxButtons.OK);
+                }
+            }
         }
         private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -117,17 +142,18 @@ namespace WindowsFormsApp2
             {
                 return;
             }
-            if(e.ColumnIndex == dataGridView.Columns["Chi tiet"].Index) 
+            string id = dataGridView.Rows[e.RowIndex].Cells[dataGridView.Columns["ID"].Index].Value.ToString();
+            string type = dataGridView.Rows[e.RowIndex].Cells[dataGridView.Columns["Kieu_cau_hoi"].Index].Value.ToString();
+            if (e.ColumnIndex == dataGridView.Columns["Chi tiet"].Index) 
             {
-                string id = dataGridView.Rows[e.RowIndex].Cells[dataGridView.Columns["ID"].Index].Value.ToString();
-                string type = dataGridView.Rows[e.RowIndex].Cells[dataGridView.Columns["Kieu_cau_hoi"].Index].Value.ToString();
+                
                 Ques_detail frm = new Ques_detail(id, type);
                 frm.Show();
                 this.Hide();
             }
             if (e.ColumnIndex == dataGridView.Columns["Xoa"].Index)
             {
-                DeleteRecord(e.RowIndex);
+                DeleteRecord(id, type);
             }
         }
     }

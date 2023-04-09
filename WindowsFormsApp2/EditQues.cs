@@ -74,7 +74,8 @@ namespace WindowsFormsApp2
             tbDescription.Text = cur_description;
             tbSubject.Text = cur_subject;
             tbPoint.Text = cur_point;
-            if (cur_type == "tự luận")
+            tbType.Text = cur_type;
+            if (cur_type.Equals("tự luận", StringComparison.OrdinalIgnoreCase))
             {
                 gbChoice.Hide();
             }
@@ -104,39 +105,48 @@ namespace WindowsFormsApp2
         }
         private void btSubmit_Click(object sender, EventArgs e)
         {
-            string query;
-            if (cur_type == "trắc nghiệm")
-            {
-                query = String.Format("BEGIN TRANSACTION;" +
-                "UPDATE question " +
-                "SET question.Noi_dung = {0}, question.Hoc_phan = {1} FROM question, trac_nghiem " +
-                "WHERE question.ID = trac_nghiem.ID_question AND question.ID = {2};" +
-
-                "UPDATE trac_nghiem " +
-                "SET trac_nghiem.A = {3}, trac_nghiem.B = {4}, trac_nghiem.C = {5}, trac_nghiem.D = {6}, trac_nghiem.Lua_chon = {7}, trac_nghiem.Diem = {8} " +
-                "FROM question, trac_nghiem " +
-                "WHERE question.ID = trac_nghiem.ID_question AND question.ID = {2};" +
-                " COMMIT;", tbDescription.Text, tbSubject.Text, ID, tbA.Text, tbB.Text, tbC.Text, tbD.Text, new_choice, tbPoint.Text);
-            }
-            else
-            {
-                query = String.Format("BEGIN TRANSACTION;" +
-                "UPDATE question " +
-                "SET question.Noi_dung = {0}, question.Hoc_phan = {1} FROM question, tu_luan " +
-                "WHERE question.ID = tu_luan.ID_question AND question.ID = {2};" +
-
-                "UPDATE tu_luan " +
-                "SET tu_luan.Diem = {3} " +
-                "FROM question, tu_luan " +
-                "WHERE question.ID = tu_luan.ID_question AND question.ID = {2};" +
-                " COMMIT;", tbDescription.Text, tbSubject.Text, ID, tbPoint.Text);
-            }
             using (SqlConnection con = sql.connectSQL())
             {
                 con.Open();
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                using (SqlCommand cmd = con.CreateCommand())
                 {
+                    if (cur_type.Equals("trắc nghiệm", StringComparison.OrdinalIgnoreCase))
+                    {
+                        cmd.CommandText = "BEGIN TRANSACTION;\n" +
+                        "UPDATE question " +
+                        "SET question.Noi_dung = @description, question.Hoc_phan = @subject FROM question, trac_nghiem " +
+                        "WHERE question.ID = trac_nghiem.ID_question AND question.ID = @ID;\n\n" +
+
+                        "UPDATE trac_nghiem " +
+                        "SET trac_nghiem.A = @A, trac_nghiem.B = @B, trac_nghiem.C = @C, trac_nghiem.D = @D, trac_nghiem.Lua_chon = @choice, trac_nghiem.Diem = @point " +
+                        "FROM question, trac_nghiem " +
+                        "WHERE question.ID = trac_nghiem.ID_question AND question.ID = @ID;\n" +
+                        "COMMIT;";
+                        cmd.Parameters.AddWithValue("@A", tbA.Text);
+                        cmd.Parameters.AddWithValue("@B", tbB.Text);
+                        cmd.Parameters.AddWithValue("@C", tbC.Text);
+                        cmd.Parameters.AddWithValue("@D", tbD.Text);
+                        cmd.Parameters.AddWithValue("@choice", new_choice);
+
+                    }
+                    else
+                    {
+                        cmd.CommandText = "BEGIN TRANSACTION;\n" +
+                        "UPDATE question " +
+                        "SET question.Noi_dung = @description, question.Hoc_phan = @subject FROM question, tu_luan " +
+                        "WHERE question.ID = tu_luan.ID_question AND question.ID = @ID;\n\n" +
+
+                        "UPDATE tu_luan " +
+                        "SET tu_luan.Diem = @point FROM question, tu_luan " +
+                        "WHERE question.ID = tu_luan.ID_question AND question.ID = @ID;\n" +
+                        " COMMIT;";
+                    }
+                    cmd.Parameters.AddWithValue("@ID", ID);
+                    cmd.Parameters.AddWithValue("@description", tbDescription.Text);
+                    cmd.Parameters.AddWithValue("@point", tbPoint.Text);
+                    cmd.Parameters.AddWithValue("@subject", tbSubject.Text);
                     cmd.ExecuteNonQuery();
+                    MessageBox.Show("Thay đổi thông tin thành công\n", "", MessageBoxButtons.OK);
                 }
             }
         }

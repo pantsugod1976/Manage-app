@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.gbGeneral = new System.Windows.Forms.GroupBox();
+            this.tbType = new System.Windows.Forms.TextBox();
+            this.lbType = new System.Windows.Forms.Label();
             this.tbPoint = new System.Windows.Forms.TextBox();
             this.tbSubject = new System.Windows.Forms.TextBox();
             this.lbSubject = new System.Windows.Forms.Label();
@@ -46,8 +48,6 @@
             this.rbA = new System.Windows.Forms.RadioButton();
             this.btCancel = new System.Windows.Forms.Button();
             this.btSubmit = new System.Windows.Forms.Button();
-            this.lbType = new System.Windows.Forms.Label();
-            this.tbType = new System.Windows.Forms.TextBox();
             this.gbGeneral.SuspendLayout();
             this.gbChoice.SuspendLayout();
             this.SuspendLayout();
@@ -68,6 +68,23 @@
             this.gbGeneral.TabIndex = 0;
             this.gbGeneral.TabStop = false;
             this.gbGeneral.Text = "Thông tin chung";
+            // 
+            // tbType
+            // 
+            this.tbType.Location = new System.Drawing.Point(101, 194);
+            this.tbType.Name = "tbType";
+            this.tbType.ReadOnly = true;
+            this.tbType.Size = new System.Drawing.Size(137, 20);
+            this.tbType.TabIndex = 26;
+            // 
+            // lbType
+            // 
+            this.lbType.AutoSize = true;
+            this.lbType.Location = new System.Drawing.Point(6, 201);
+            this.lbType.Name = "lbType";
+            this.lbType.Size = new System.Drawing.Size(66, 13);
+            this.lbType.TabIndex = 25;
+            this.lbType.Text = "Kiểu câu hỏi";
             // 
             // tbPoint
             // 
@@ -234,23 +251,6 @@
             this.btSubmit.Text = "Submit";
             this.btSubmit.UseVisualStyleBackColor = true;
             this.btSubmit.Click += new System.EventHandler(this.btSubmit_Click);
-            // 
-            // lbType
-            // 
-            this.lbType.AutoSize = true;
-            this.lbType.Location = new System.Drawing.Point(6, 201);
-            this.lbType.Name = "lbType";
-            this.lbType.Size = new System.Drawing.Size(66, 13);
-            this.lbType.TabIndex = 25;
-            this.lbType.Text = "Kiểu câu hỏi";
-            // 
-            // tbType
-            // 
-            this.tbType.Location = new System.Drawing.Point(101, 194);
-            this.tbType.Name = "tbType";
-            this.tbType.ReadOnly = true;
-            this.tbType.Size = new System.Drawing.Size(137, 20);
-            this.tbType.TabIndex = 26;
             // 
             // EditQues
             // 
