@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using Microsoft.SqlServer.Server;
 
 namespace WindowsFormsApp2
 {
@@ -18,7 +19,7 @@ namespace WindowsFormsApp2
         {
             InitializeComponent();
         }
-
+        SqlConnect sql = new SqlConnect();
         private void lb_Click(object sender, EventArgs e)
         {
 
@@ -31,32 +32,73 @@ namespace WindowsFormsApp2
             this.Close();
         }
 
-        private SqlCommand QuerySQL_TN(SqlConnection conn)
+        private DataTable GetQuestion(string query)
         {
-            string query_TN = "Select ID from question where Subject = \"" + tbSubject.Text + "\" && Type = 0 order by rand() limit " + numberChoice.Value;
-            SqlCommand cmd_TN = new SqlCommand();
-            cmd_TN.Connection = conn;
-            cmd_TN.CommandText = query_TN;
-            return cmd_TN;
-        }
-
-        private SqlCommand QuerySQL_TL(SqlConnection conn)
-        {
-            string query_TL = "Select ID from question where Subject= \"" + tbSubject.Text + "\" && Type = 1 order by rand() limit " + numberEssay.Value;
-            SqlCommand cmd_TL = new SqlCommand();
-            cmd_TL.Connection = conn;
-            cmd_TL.CommandText = query_TL;
-            return cmd_TL;
+            using (SqlConnection conn = sql.connectSQL())
+            {
+                conn.Open();
+                using (SqlDataAdapter ad = new SqlDataAdapter(query, conn))
+                {
+                    DataTable dt = new DataTable();
+                    ad.Fill(dt);
+                    return dt;
+                }
+            }
         }
 
         private void btGenerate_Click(object sender, EventArgs e)
         {
-            
+            string query;
+            int res = (int)numericUpDown1.Value;
+            query = "SELECT TOP " + res.ToString() + " ID, Noi_dung, Kieu_cau_hoi FROM (SELECT * FROM question WHERE Hoc_phan = N\'" + cbSubject.SelectedItem.ToString() + "\' AND Kieu_cau_hoi = N\'" + cbType.SelectedItem.ToString() + "\')a ORDER BY NEWID()";
+            if (res > 0)
+            {
+                TestPreview frm = new TestPreview(GetQuestion(query));
+                frm.Show();
+                this.Hide();
+            }
         }
 
+        private void CB_Subject()
+        {
+            string query = "SELECT DISTINCT Hoc_phan FROM question";
+            using (SqlConnection conn = sql.connectSQL())
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            cbSubject.Items.Add(reader["Hoc_phan"].ToString());
+                        }
+                    }
+                }
+            }
+        }
+        private void CB_Type()
+        {
+            string query = "SELECT DISTINCT Kieu_cau_hoi FROM question";
+            using (SqlConnection conn = sql.connectSQL())
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            cbType.Items.Add(reader["Kieu_cau_hoi"].ToString());
+                        }
+                    }
+                }
+            }
+        }
         private void Test_Generate_Load(object sender, EventArgs e)
         {
-            
+            CB_Subject();
+            CB_Type();
         }
     }
 }

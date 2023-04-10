@@ -132,7 +132,7 @@ namespace WindowsFormsApp2
                         cmd.CommandText = "BEGIN TRANSACTION;\n" +
                             "DELETE FROM question WHERE question.ID = @ID;\n\n" +
                             "DBCC CHECKIDENT(question, reseed, @prev_ID)\n\n" +
-                            "DBCC CHECKIDENT(tu_luan, reseed, @prev_ID)\n\n" +
+                            "DBCC CHECKIDENT(trac_nghiem, reseed, @prev_ID)\n\n" +
                             "COMMIT;";
                     }
                     cmd.Parameters.AddWithValue("@ID", ID);
@@ -161,6 +161,11 @@ namespace WindowsFormsApp2
             {
                 DeleteRecord(id, type);
             }
+        }
+
+        private void cbType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 
