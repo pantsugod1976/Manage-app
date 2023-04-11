@@ -59,7 +59,7 @@
             // 
             // btSearch
             // 
-            this.btSearch.Location = new System.Drawing.Point(311, 65);
+            this.btSearch.Location = new System.Drawing.Point(631, 68);
             this.btSearch.Name = "btSearch";
             this.btSearch.Size = new System.Drawing.Size(75, 23);
             this.btSearch.TabIndex = 3;
@@ -70,7 +70,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(404, 45);
+            this.label1.Location = new System.Drawing.Point(327, 47);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(66, 13);
             this.label1.TabIndex = 4;
@@ -79,7 +79,7 @@
             // cbType
             // 
             this.cbType.FormattingEnabled = true;
-            this.cbType.Location = new System.Drawing.Point(407, 66);
+            this.cbType.Location = new System.Drawing.Point(330, 68);
             this.cbType.Name = "cbType";
             this.cbType.Size = new System.Drawing.Size(121, 21);
             this.cbType.TabIndex = 5;
@@ -88,7 +88,7 @@
             // cbSubject
             // 
             this.cbSubject.FormattingEnabled = true;
-            this.cbSubject.Location = new System.Drawing.Point(557, 65);
+            this.cbSubject.Location = new System.Drawing.Point(480, 67);
             this.cbSubject.Name = "cbSubject";
             this.cbSubject.Size = new System.Drawing.Size(121, 21);
             this.cbSubject.TabIndex = 7;
@@ -96,7 +96,7 @@
             // lbSubject
             // 
             this.lbSubject.AutoSize = true;
-            this.lbSubject.Location = new System.Drawing.Point(554, 45);
+            this.lbSubject.Location = new System.Drawing.Point(477, 47);
             this.lbSubject.Name = "lbSubject";
             this.lbSubject.Size = new System.Drawing.Size(54, 13);
             this.lbSubject.TabIndex = 6;

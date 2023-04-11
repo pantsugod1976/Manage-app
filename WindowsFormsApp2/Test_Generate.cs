@@ -20,45 +20,14 @@ namespace WindowsFormsApp2
             InitializeComponent();
         }
         SqlConnect sql = new SqlConnect();
-        private void lb_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        List<string> list = new List<string>();
+        DataTable dt = new DataTable();
         private void tbCancel_Click(object sender, EventArgs e)
         {
             Form frm = Application.OpenForms["HomePage"];
             frm.Show();
             this.Close();
         }
-
-        private DataTable GetQuestion(string query)
-        {
-            using (SqlConnection conn = sql.connectSQL())
-            {
-                conn.Open();
-                using (SqlDataAdapter ad = new SqlDataAdapter(query, conn))
-                {
-                    DataTable dt = new DataTable();
-                    ad.Fill(dt);
-                    return dt;
-                }
-            }
-        }
-
-        private void btGenerate_Click(object sender, EventArgs e)
-        {
-            string query;
-            int res = (int)numericUpDown1.Value;
-            query = "SELECT TOP " + res.ToString() + " ID, Noi_dung, Kieu_cau_hoi FROM (SELECT * FROM question WHERE Hoc_phan = N\'" + cbSubject.SelectedItem.ToString() + "\' AND Kieu_cau_hoi = N\'" + cbType.SelectedItem.ToString() + "\')a ORDER BY NEWID()";
-            if (res > 0)
-            {
-                TestPreview frm = new TestPreview(GetQuestion(query));
-                frm.Show();
-                this.Hide();
-            }
-        }
-
         private void CB_Subject()
         {
             string query = "SELECT DISTINCT Hoc_phan FROM question";
@@ -95,10 +64,93 @@ namespace WindowsFormsApp2
                 }
             }
         }
+        private void GetQuestion()
+        {
+            string query = "SELECT * FROM question WHERE Hoc_phan = N\'" + cbSubject.SelectedItem.ToString() + "\' AND Kieu_cau_hoi = N\'" + cbType.SelectedItem.ToString() + "\'";
+            using (SqlConnection conn = sql.connectSQL())
+            {
+                conn.Open();
+                using (SqlDataAdapter ad = new SqlDataAdapter(query, conn))
+                {
+                    
+                    ad.Fill(dt);
+                }
+            }
+            dgvList.DataSource = dt;
+        }
+        private void btGenerate_Click(object sender, EventArgs e)
+        {
+            if (cbSubject.SelectedItem == null || cbType.SelectedItem == null)
+            {
+                MessageBox.Show("Null value", "", MessageBoxButtons.OK);
+                return;
+            }
+            GetQuestion();
+            DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
+            dataGridViewCheckBoxColumn.ValueType = typeof(bool);
+            dataGridViewCheckBoxColumn.Name = "Check";
+            dataGridViewCheckBoxColumn.HeaderText = "Add";
+            dgvList.Columns.Add(dataGridViewCheckBoxColumn);
+            dgvList.AllowUserToAddRows = false;
+        }
+
         private void Test_Generate_Load(object sender, EventArgs e)
         {
             CB_Subject();
             CB_Type();
+        }
+
+        private void btPreview_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void dgvList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex < 0)
+            {
+                return;
+            }
+            if (e.ColumnIndex == dgvList.Columns["Check"].Index)
+            {
+                if(Convert.ToBoolean(dgvList.Rows[e.RowIndex].Cells["Check"].EditedFormattedValue))
+                list.Add(dgvList.Rows[e.RowIndex].Cells["ID"].Value.ToString());
+                else
+                {
+                    list.Remove(dgvList.Rows[e.RowIndex].Cells["ID"].Value.ToString());
+                }
+            }
+        }
+        private void CheckEnter(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                if (tbSearch.Text == null)
+                {
+                    return;
+                }
+                int Row_Search = -1;
+                DataGridViewRow row = dgvList.Rows.Cast<DataGridViewRow>().Where(r => r.Cells["Noi_dung"].Value.ToString().Equals(tbSearch.Text)).First();
+                Row_Search = row.Index;
+                if(Row_Search == -1)
+                {
+                    MessageBox.Show("Không có kết quả phù hợp", "", MessageBoxButtons.OK);
+                    tbSearch.Focus();
+                }
+                else
+                {
+                    dgvList.ClearSelection();
+                    dgvList.Rows[Row_Search].Selected = true;
+                }
+            }
+        }
+
+        private void tbSearch_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbSearch.Text))
+            {
+                dgvList.ClearSelection();
+            }
         }
     }
 }

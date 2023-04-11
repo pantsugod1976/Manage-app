@@ -20,19 +20,10 @@ namespace WindowsFormsApp2
             InitializeComponent();
         }
         SqlConnect sqlConnect = new SqlConnect();
-        private void groupBox2_Enter(object sender, EventArgs e)
-        {
-
-        }
 
         private void AddQuestion_Load(object sender, EventArgs e)
         {
             gbChoice.Hide();
-        }
-
-        private void gbType_Enter(object sender, EventArgs e)
-        {
-
         }
 
         private void rbChoice_CheckedChanged(object sender, EventArgs e)
@@ -170,11 +161,6 @@ namespace WindowsFormsApp2
         private void rbD_CheckedChanged(object sender, EventArgs e)
         {
             answer = 'D';
-        }
-
-        private void tbPoint_TextChanged(object sender, EventArgs e)
-        {
-
         }
     } 
 }

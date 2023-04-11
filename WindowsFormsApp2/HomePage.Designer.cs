@@ -32,8 +32,6 @@
             this.btControl = new System.Windows.Forms.Button();
             this.btUpdate = new System.Windows.Forms.Button();
             this.btTest = new System.Windows.Forms.Button();
-            this.btFile = new System.Windows.Forms.Button();
-            this.btQuest = new System.Windows.Forms.Button();
             this.btRestore = new System.Windows.Forms.Button();
             this.tbCancel = new System.Windows.Forms.Button();
             this.btBackup = new System.Windows.Forms.Button();
@@ -79,26 +77,6 @@
             this.btTest.Text = "Tạo đề thi";
             this.btTest.UseVisualStyleBackColor = true;
             this.btTest.Click += new System.EventHandler(this.btTest_Click);
-            // 
-            // btFile
-            // 
-            this.btFile.Location = new System.Drawing.Point(393, 189);
-            this.btFile.Name = "btFile";
-            this.btFile.Size = new System.Drawing.Size(113, 23);
-            this.btFile.TabIndex = 1;
-            this.btFile.Text = "Cập nhật từ File";
-            this.btFile.UseVisualStyleBackColor = true;
-            this.btFile.Click += new System.EventHandler(this.btFile_Click);
-            // 
-            // btQuest
-            // 
-            this.btQuest.Location = new System.Drawing.Point(393, 218);
-            this.btQuest.Name = "btQuest";
-            this.btQuest.Size = new System.Drawing.Size(113, 23);
-            this.btQuest.TabIndex = 1;
-            this.btQuest.Text = "Cập nhật từng câu";
-            this.btQuest.UseVisualStyleBackColor = true;
-            this.btQuest.Click += new System.EventHandler(this.btQuest_Click);
             // 
             // btRestore
             // 
@@ -150,8 +128,6 @@
             this.Controls.Add(this.tbCancel);
             this.Controls.Add(this.btTest);
             this.Controls.Add(this.btRestore);
-            this.Controls.Add(this.btQuest);
-            this.Controls.Add(this.btFile);
             this.Controls.Add(this.btUpdate);
             this.Controls.Add(this.btControl);
             this.Controls.Add(this.lbTiltle);
@@ -168,8 +144,6 @@
         private System.Windows.Forms.Button btControl;
         private System.Windows.Forms.Button btUpdate;
         private System.Windows.Forms.Button btTest;
-        private System.Windows.Forms.Button btFile;
-        private System.Windows.Forms.Button btQuest;
         private System.Windows.Forms.Button btRestore;
         private System.Windows.Forms.Button tbCancel;
         private System.Windows.Forms.Button btBackup;

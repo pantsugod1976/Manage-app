@@ -55,12 +55,6 @@
     <Compile Include="EditQues.Designer.cs">
       <DependentUpon>EditQues.cs</DependentUpon>
     </Compile>
-    <Compile Include="TestPreview.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TestPreview.Designer.cs">
-      <DependentUpon>TestPreview.cs</DependentUpon>
-    </Compile>
     <Compile Include="Ques_detail.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,9 +129,6 @@
     </Compile>
     <EmbeddedResource Include="Ques_detail.resx">
       <DependentUpon>Ques_detail.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TestPreview.resx">
-      <DependentUpon>TestPreview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Test_Generate.resx">
       <DependentUpon>Test_Generate.cs</DependentUpon>

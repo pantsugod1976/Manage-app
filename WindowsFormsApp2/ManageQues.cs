@@ -29,10 +29,9 @@ namespace WindowsFormsApp2
                 using (SqlDataAdapter adapter = new SqlDataAdapter(query, conn))
                 {
                     adapter.Fill(table);
-                }
-                dataGridView.DataSource = table;
-                
+                }                
             }
+            dataGridView.DataSource = table;
         }
         private void Generate_Table()
         {
@@ -47,6 +46,7 @@ namespace WindowsFormsApp2
             col_delete.Text = "Delete";
             col_delete.Name = "Xoa";
             dataGridView.Columns.Add(col_delete);
+            dataGridView.AllowUserToAddRows = false;
         }
         private void CB_Subject()
         {

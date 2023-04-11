@@ -32,12 +32,14 @@
             this.lbSubject = new System.Windows.Forms.Label();
             this.btGenerate = new System.Windows.Forms.Button();
             this.tbCancel = new System.Windows.Forms.Button();
-            this.lbAmount = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.lbType = new System.Windows.Forms.Label();
             this.cbType = new System.Windows.Forms.ComboBox();
             this.cbSubject = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.dgvList = new System.Windows.Forms.DataGridView();
+            this.btPreview = new System.Windows.Forms.Button();
+            this.lbSearch = new System.Windows.Forms.Label();
+            this.tbSearch = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvList)).BeginInit();
             this.SuspendLayout();
             // 
             // lbTiltle
@@ -53,16 +55,15 @@
             // lbSubject
             // 
             this.lbSubject.AutoSize = true;
-            this.lbSubject.Location = new System.Drawing.Point(372, 58);
+            this.lbSubject.Location = new System.Drawing.Point(210, 58);
             this.lbSubject.Name = "lbSubject";
             this.lbSubject.Size = new System.Drawing.Size(54, 13);
             this.lbSubject.TabIndex = 3;
             this.lbSubject.Text = "Học phần";
-            this.lbSubject.Click += new System.EventHandler(this.lb_Click);
             // 
             // btGenerate
             // 
-            this.btGenerate.Location = new System.Drawing.Point(30, 257);
+            this.btGenerate.Location = new System.Drawing.Point(30, 153);
             this.btGenerate.Name = "btGenerate";
             this.btGenerate.Size = new System.Drawing.Size(75, 23);
             this.btGenerate.TabIndex = 4;
@@ -72,29 +73,13 @@
             // 
             // tbCancel
             // 
-            this.tbCancel.Location = new System.Drawing.Point(490, 257);
+            this.tbCancel.Location = new System.Drawing.Point(825, 421);
             this.tbCancel.Name = "tbCancel";
             this.tbCancel.Size = new System.Drawing.Size(75, 23);
             this.tbCancel.TabIndex = 4;
             this.tbCancel.Text = "Thoát";
             this.tbCancel.UseVisualStyleBackColor = true;
             this.tbCancel.Click += new System.EventHandler(this.tbCancel_Click);
-            // 
-            // lbAmount
-            // 
-            this.lbAmount.AutoSize = true;
-            this.lbAmount.Location = new System.Drawing.Point(372, 151);
-            this.lbAmount.Name = "lbAmount";
-            this.lbAmount.Size = new System.Drawing.Size(70, 13);
-            this.lbAmount.TabIndex = 5;
-            this.lbAmount.Text = "Số lượng câu";
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(375, 188);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(190, 20);
-            this.numericUpDown1.TabIndex = 6;
             // 
             // lbType
             // 
@@ -116,21 +101,60 @@
             // cbSubject
             // 
             this.cbSubject.FormattingEnabled = true;
-            this.cbSubject.Location = new System.Drawing.Point(375, 95);
+            this.cbSubject.Location = new System.Drawing.Point(213, 95);
             this.cbSubject.Name = "cbSubject";
             this.cbSubject.Size = new System.Drawing.Size(121, 21);
             this.cbSubject.TabIndex = 9;
+            // 
+            // dgvList
+            // 
+            this.dgvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvList.Location = new System.Drawing.Point(392, 58);
+            this.dgvList.Name = "dgvList";
+            this.dgvList.Size = new System.Drawing.Size(508, 350);
+            this.dgvList.TabIndex = 10;
+            this.dgvList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvList_CellContentClick);
+            // 
+            // btPreview
+            // 
+            this.btPreview.Location = new System.Drawing.Point(213, 153);
+            this.btPreview.Name = "btPreview";
+            this.btPreview.Size = new System.Drawing.Size(75, 23);
+            this.btPreview.TabIndex = 11;
+            this.btPreview.Text = "Preview";
+            this.btPreview.UseVisualStyleBackColor = true;
+            this.btPreview.Click += new System.EventHandler(this.btPreview_Click);
+            // 
+            // lbSearch
+            // 
+            this.lbSearch.AutoSize = true;
+            this.lbSearch.Location = new System.Drawing.Point(30, 255);
+            this.lbSearch.Name = "lbSearch";
+            this.lbSearch.Size = new System.Drawing.Size(41, 13);
+            this.lbSearch.TabIndex = 12;
+            this.lbSearch.Text = "Search";
+            // 
+            // tbSearch
+            // 
+            this.tbSearch.Location = new System.Drawing.Point(30, 292);
+            this.tbSearch.Name = "tbSearch";
+            this.tbSearch.Size = new System.Drawing.Size(304, 20);
+            this.tbSearch.TabIndex = 13;
+            this.tbSearch.TextChanged += new System.EventHandler(this.tbSearch_TextChanged);
+            this.tbSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CheckEnter);
             // 
             // Test_Generate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(630, 347);
+            this.ClientSize = new System.Drawing.Size(912, 456);
+            this.Controls.Add(this.tbSearch);
+            this.Controls.Add(this.lbSearch);
+            this.Controls.Add(this.btPreview);
+            this.Controls.Add(this.dgvList);
             this.Controls.Add(this.cbSubject);
             this.Controls.Add(this.cbType);
             this.Controls.Add(this.lbType);
-            this.Controls.Add(this.numericUpDown1);
-            this.Controls.Add(this.lbAmount);
             this.Controls.Add(this.tbCancel);
             this.Controls.Add(this.btGenerate);
             this.Controls.Add(this.lbSubject);
@@ -138,7 +162,7 @@
             this.Name = "Test_Generate";
             this.Text = "    ";
             this.Load += new System.EventHandler(this.Test_Generate_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -150,10 +174,12 @@
         private System.Windows.Forms.Label lbSubject;
         private System.Windows.Forms.Button btGenerate;
         private System.Windows.Forms.Button tbCancel;
-        private System.Windows.Forms.Label lbAmount;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label lbType;
         private System.Windows.Forms.ComboBox cbType;
         private System.Windows.Forms.ComboBox cbSubject;
+        private System.Windows.Forms.DataGridView dgvList;
+        private System.Windows.Forms.Button btPreview;
+        private System.Windows.Forms.Label lbSearch;
+        private System.Windows.Forms.TextBox tbSearch;
     }
 }

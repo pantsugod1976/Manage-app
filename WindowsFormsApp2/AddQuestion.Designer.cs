@@ -62,7 +62,6 @@
             this.gbType.TabIndex = 0;
             this.gbType.TabStop = false;
             this.gbType.Text = "Type";
-            this.gbType.Enter += new System.EventHandler(this.gbType_Enter);
             // 
             // rbEssay
             // 
@@ -104,7 +103,6 @@
             this.gbChoice.TabIndex = 1;
             this.gbChoice.TabStop = false;
             this.gbChoice.Text = "gbChoice";
-            this.gbChoice.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
             // tbD
             // 
@@ -256,7 +254,6 @@
             this.tbPoint.Name = "tbPoint";
             this.tbPoint.Size = new System.Drawing.Size(137, 43);
             this.tbPoint.TabIndex = 8;
-            this.tbPoint.TextChanged += new System.EventHandler(this.tbPoint_TextChanged);
             // 
             // AddQuestion
             // 

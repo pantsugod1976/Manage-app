@@ -19,24 +19,20 @@ namespace WindowsFormsApp2
         {
             InitializeComponent();
         }
-        public SqlConnection GetConnection()
-        {
-            SqlConnect conn = new SqlConnect();
-            return conn.connectSQL();
-        }
+        SqlConnect sql = new SqlConnect();
         private void ImportData_Load(object sender, EventArgs e)
         {
-            using (SqlConnection conn = GetConnection())
+            using (SqlConnection conn = sql.connectSQL())
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE  TABLE_TYPE = 'BASE TABLE' AND TABLE_SCHEMA = 'test'", conn))
+                using (SqlCommand cmd = new SqlCommand("SELECT DISTINCT Kieu_cau_hoi FROM question", conn))
                 {
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        cbTable.Items.Clear();
+                        cbType.Items.Clear();
                         while (reader.Read())
                         {
-                            cbTable.Items.Add((string)reader["TABLE_NAME"]);
+                            cbType.Items.Add(reader["Kieu_cau_hoi"].ToString());
                         }
                     }
                 }
@@ -50,8 +46,54 @@ namespace WindowsFormsApp2
             this.Close();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btRestore_Click(object sender, EventArgs e)
         {
+
+        }
+        private DataTable GetCsvData(string filePath)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection conn = sql.connectSQL())
+            {
+                using (StreamReader  reader = new StreamReader(filePath))
+                {
+                    string[] headers = reader.ReadLine().Split(',');
+                    foreach(string header in headers)
+                    {
+                        dt.Columns.Add(header);
+                    }
+                    while (!reader.EndOfStream)
+                    {
+                        string[] rows = reader.ReadLine().Split(',');
+                        DataRow dr = dt.NewRow();
+                        for (int i = 0; i < headers.Length; i++)
+                        {
+                            dr[i] = rows[i].Trim();
+                        }
+                        dt.Rows.Add(dr);
+                    }
+                }
+            }
+            return dt;
+        }
+        private void ImportSql(DataTable dt)
+        {
+            using (SqlConnection conn = sql.connectSQL())
+            {
+                using ()
+                {
+
+                }
+            }
+        }
+        private void btFile_Click(object sender, EventArgs e)
+        {
+            if(cbType.SelectedItem == null)
+            {
+                MessageBox.Show("Null type", "", MessageBoxButtons.OK);
+                cbType.Focus();
+                return;
+            }
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.RestoreDirectory = true;
             ofd.Title = "Browser csv file";
@@ -59,20 +101,25 @@ namespace WindowsFormsApp2
             ofd.Filter = "csv files(*.csv)|*.csv";
             ofd.CheckFileExists = true;
             ofd.ShowDialog();
-            StreamReader streamReader = new StreamReader(ofd.FileName.ToString());
-            string table_name = Path.GetFileName(Path.GetDirectoryName(ofd.FileName));
-            tbFile.Text = Path.GetDirectoryName(ofd.FileName);
-            SqlConnection conn = GetConnection();
-            try
+            if (cbType.SelectedItem.ToString().Equals("Trắc nghiệm", StringComparison.OrdinalIgnoreCase))
             {
-                conn.Open();
+                if (Path.GetFileNameWithoutExtension(ofd.FileName).Contains("trac_nghiem*"))
+                {
+                    MessageBox.Show("Sai file cho cau hoi " + cbType.SelectedItem.ToString());
+                    return;
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message, "Connect database", MessageBoxButtons.OK);
-                return;
+                if (Path.GetFileNameWithoutExtension(ofd.FileName).Contains("tu_luan*"))
+                {
+                    MessageBox.Show("Sai file cho cau hoi " + cbType.SelectedItem.ToString());
+                    return;
+                }
             }
-
+            tbFile.Text = ofd.FileName;
+            DataTable dt = GetCsvData(ofd.FileName);
+            ImportSql(dt);
         }
     }
 }

@@ -30,8 +30,6 @@ namespace WindowsFormsApp2
 
         private void Form1_Load(object sender, EventArgs e)
         {           
-            btFile.Visible= false;
-            btQuest.Visible= false;
             btRestore.Visible= false;
             btBackup.Visible= false;
             btQL.Visible= false;
@@ -46,16 +44,9 @@ namespace WindowsFormsApp2
 
         private void btUpdate_Click(object sender, EventArgs e)
         {
-            if (!btFile.Visible)
-            {
-                btFile.Visible = true;
-                btQuest.Visible = true;   
-            }
-            else
-            {
-                btFile.Visible = false;
-                btQuest.Visible = false;
-            }
+            AddQuestion frm = new AddQuestion();
+            frm.Show();
+            this.Hide();
         }
 
         private void tbCancel_Click(object sender, EventArgs e)
@@ -67,19 +58,6 @@ namespace WindowsFormsApp2
             }*/
             this.Close();
         }
-
-        private void btFile_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void btQuest_Click(object sender, EventArgs e)
-        {
-            AddQuestion frm = new AddQuestion();
-            frm.Show();
-            this.Hide();
-        }
-
         private void btControl_Click(object sender, EventArgs e)
         {
             if (!btRestore.Visible)
@@ -98,25 +76,6 @@ namespace WindowsFormsApp2
 
         private void btRestore_Click(object sender, EventArgs e)
         {
-            /*OpenFileDialog ofd = new OpenFileDialog();
-            ofd.RestoreDirectory = true;
-            ofd.Title = "Browser csv file";
-            ofd.DefaultExt = "csv";
-            ofd.Filter = "csv files(*.csv)|*.csv";
-            ofd.CheckFileExists = true;
-            ofd.ShowDialog();
-            StreamReader streamReader = new StreamReader(ofd.FileName.ToString());
-            string table_name = Path.GetFileName(Path.GetDirectoryName(ofd.FileName));
-            SqlConnection conn = GetConnection();
-            try
-            {
-                conn.Open();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Connect database", MessageBoxButtons.OK);
-                return;
-            }*/
             ImportData frm = new ImportData();
             frm.Show();
             this.Visible = false;
@@ -128,45 +87,54 @@ namespace WindowsFormsApp2
             frm.Show();
             this.Hide();
         }
-        private void NumberColume(SqlConnection conn, string table)
-        {
-            string query = string.Format("SELECT COUNT(COLUMN_NAME) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_CATALOG = 'test' AND TABLE_SCHEMA = 'dbo'  AND TABLE_NAME = \'{0}\'", table);
-            MessageBox.Show(query);
-            using (SqlCommand cmd = new SqlCommand(query, conn))
-            {
-                int num = (int)cmd.ExecuteScalar();
-                MessageBox.Show(num.ToString());
-            }
-        }
         private void WriteValue(SqlConnection conn, string FolderPath, string query, string table)
         {
-            string folderPath = FolderPath + "\\" + table;
-            int count = 0;
+            DataTable dt = new DataTable();
             DateTime today = DateTime.Today;
-            NumberColume(conn, table);
+            string folderName = string.Format("{0}backup{1}_{2}_{3}.csv", table, today.Day.ToString(), today.Month.ToString(), today.Year.ToString());
+            string folderPath = FolderPath + "\\" + table;
             if (!Directory.Exists(folderPath))
             {
                 Directory.CreateDirectory(folderPath);
             }
-            StreamWriter csvFile = null;     //Wirter for csv file
-            using (SqlCommand cmd = new SqlCommand(query, conn))
+            using (SqlDataAdapter adt = new SqlDataAdapter(query, conn))
             {
-                using(SqlDataReader reader = cmd.ExecuteReader())
-                {           
-                    string folderName = string.Format("backup{0}_{1}_{2}.csv", today.Day.ToString(), today.Month.ToString(), today.Year.ToString());
-                    using (csvFile = new StreamWriter(folderPath + "\\" + folderName, false, Encoding.UTF8))
+                adt.Fill(dt);
+            }
+            using (StreamWriter sw = new StreamWriter(folderPath + "\\" + folderName, false, Encoding.UTF8))
+            {
+                foreach (var col in dt.Columns)
+                {
+                    sw.Write(col.ToString()+",");
+                }
+                sw.Write(",");
+                sw.Write(sw.NewLine);
+                foreach (DataRow row in dt.Rows)
+                {
+                    for (int i = 0; i < dt.Columns.Count; ++i)
                     {
-                        csvFile.WriteLine(String.Format("\"{0}\",\"{1}\",\"{2}\"," + "\"{3}\"",               //Add colume name
-                        reader.GetName(0), reader.GetName(1), reader.GetName(2), reader.GetName(3)));
-                        while (reader.Read())                                                                 //Array reader (value_col1, value_col2, value_col3)
+                        if (!Convert.IsDBNull(row[i]))
                         {
-                            csvFile.WriteLine(String.Format("\"{0}\",\"{1}\",\"{2}\"," + "\"{3}\"",           //Add row value
-                            reader[0], reader[1], reader[2], reader[3]));
+                            string value = row[i].ToString();
+                            if (value.Contains(','))
+                            {
+                                value = String.Format("\"{0}\"", value);
+                                sw.Write(value);
+                            }
+                            else
+                            {
+                                sw.Write(value);
+                            }
+                        }
+                        if(i < dt.Columns.Count - 1)
+                        {
+                            sw.Write(',');
                         }
                     }
+                    sw.Write('\n');
                 }
+                return;
             }
-            return;
         }
         private void btBackup_Click(object sender, EventArgs e)
         {
@@ -182,12 +150,12 @@ namespace WindowsFormsApp2
             }
             try
             {
-                string query = "select * from question";
-                string query_TN = "select * from trac_nghiem";
+                string query_TN = "SELECT question.ID, question.Noi_dung, question.Hoc_phan, question.Kieu_cau_hoi, trac_nghiem.A, trac_nghiem.B, trac_nghiem.C, trac_nghiem.D,trac_nghiem.Diem FROM question INNER JOIN trac_nghiem ON question.ID = trac_nghiem.ID_question";
+                string query_TL = "SELECT question.ID, question.Noi_dung, question.Hoc_phan, question.Kieu_cau_hoi, tu_luan.Diem FROM question INNER JOIN tu_luan ON question.ID = tu_luan.ID_question";
                 FolderBrowserDialog choofdlog = new FolderBrowserDialog();
                 choofdlog.ShowDialog();
                 string FolderPath = choofdlog.SelectedPath;
-                WriteValue(conn, FolderPath, query, "question");
+                WriteValue(conn, FolderPath, query_TL, "tu_luan");
                 WriteValue(conn, FolderPath, query_TN, "trac_nghiem");
                 MessageBox.Show("Export successful in " + FolderPath, "Backup database", MessageBoxButtons.OK);
             }
@@ -198,13 +166,9 @@ namespace WindowsFormsApp2
             }
             finally
             {
-                conn.Close();    //Close database
+                conn.Close();//Close database
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-           
-        }
     }
 }

@@ -30,7 +30,7 @@
         {
             this.lbTiltle = new System.Windows.Forms.Label();
             this.lbTable = new System.Windows.Forms.Label();
-            this.cbTable = new System.Windows.Forms.ComboBox();
+            this.cbType = new System.Windows.Forms.ComboBox();
             this.lbFile = new System.Windows.Forms.Label();
             this.tbFile = new System.Windows.Forms.TextBox();
             this.btRestore = new System.Windows.Forms.Button();
@@ -55,15 +55,15 @@
             this.lbTable.Name = "lbTable";
             this.lbTable.Size = new System.Drawing.Size(100, 21);
             this.lbTable.TabIndex = 1;
-            this.lbTable.Text = "Table name";
+            this.lbTable.Text = "Kiểu câu hỏi";
             // 
-            // cbTable
+            // cbType
             // 
-            this.cbTable.FormattingEnabled = true;
-            this.cbTable.Location = new System.Drawing.Point(131, 92);
-            this.cbTable.Name = "cbTable";
-            this.cbTable.Size = new System.Drawing.Size(203, 21);
-            this.cbTable.TabIndex = 2;
+            this.cbType.FormattingEnabled = true;
+            this.cbType.Location = new System.Drawing.Point(131, 92);
+            this.cbType.Name = "cbType";
+            this.cbType.Size = new System.Drawing.Size(203, 21);
+            this.cbType.TabIndex = 2;
             // 
             // lbFile
             // 
@@ -88,6 +88,7 @@
             this.btRestore.TabIndex = 5;
             this.btRestore.Text = "Restore";
             this.btRestore.UseVisualStyleBackColor = true;
+            this.btRestore.Click += new System.EventHandler(this.btRestore_Click);
             // 
             // btCancel
             // 
@@ -107,7 +108,7 @@
             this.btFile.TabIndex = 6;
             this.btFile.Text = "Browser";
             this.btFile.UseVisualStyleBackColor = true;
-            this.btFile.Click += new System.EventHandler(this.button1_Click);
+            this.btFile.Click += new System.EventHandler(this.btFile_Click);
             // 
             // ImportData
             // 
@@ -119,7 +120,7 @@
             this.Controls.Add(this.btRestore);
             this.Controls.Add(this.tbFile);
             this.Controls.Add(this.lbFile);
-            this.Controls.Add(this.cbTable);
+            this.Controls.Add(this.cbType);
             this.Controls.Add(this.lbTable);
             this.Controls.Add(this.lbTiltle);
             this.Name = "ImportData";
@@ -134,7 +135,7 @@
 
         private System.Windows.Forms.Label lbTiltle;
         private System.Windows.Forms.Label lbTable;
-        private System.Windows.Forms.ComboBox cbTable;
+        private System.Windows.Forms.ComboBox cbType;
         private System.Windows.Forms.Label lbFile;
         private System.Windows.Forms.TextBox tbFile;
         private System.Windows.Forms.Button btRestore;
