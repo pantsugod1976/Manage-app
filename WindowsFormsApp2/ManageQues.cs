@@ -99,18 +99,24 @@ namespace WindowsFormsApp2
 
         private void tbSearch_TextChanged(object sender, EventArgs e)
         {
-
+            string query = String.Format("SELECT * FROM question WHERE Noi_dung like \'{0}%\'", cbType.SelectedItem.ToString());
+            using (SqlConnection conn = sqlConnect.connectSQL())
+            {
+                using (SqlDataAdapter adt = new SqlDataAdapter(query, conn))
+                {
+                    table = new DataTable();
+                    adt.Fill(table);
+                }
+            }
+            dataGridView.DataSource = table;
         }
 
         private void btSearch_Click(object sender, EventArgs e)
         {
-            
+            DataTable dt = table;
+            DataRow[] dr = dt.Select("");
         }
 
-        private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
         private void DeleteRecord(string id, string type)
         {
             int ID = Int32.Parse(id);
@@ -165,7 +171,30 @@ namespace WindowsFormsApp2
 
         private void cbType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            string query = String.Format("SELECT * FROM question WHERE Kieu_cau_hoi = \'{0}\'", cbType.SelectedItem.ToString());
+            using (SqlConnection conn = sqlConnect.connectSQL())
+            {
+                using (SqlDataAdapter adt = new SqlDataAdapter(query, conn))
+                {
+                    table = new DataTable();
+                    adt.Fill(table);
+                }
+            }
+            dataGridView.DataSource = table;
+        }
 
+        private void cbSubject_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string query = String.Format("SELECT * FROM question WHERE Hoc_phan = \'{0}\'", cbSubject.SelectedItem.ToString());
+            using (SqlConnection conn = sqlConnect.connectSQL())
+            {
+                using (SqlDataAdapter adt = new SqlDataAdapter(query, conn))
+                {
+                    table = new DataTable();
+                    adt.Fill(table);
+                }
+            }
+            dataGridView.DataSource = table;
         }
     }
 

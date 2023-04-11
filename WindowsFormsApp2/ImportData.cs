@@ -80,10 +80,7 @@ namespace WindowsFormsApp2
         {
             using (SqlConnection conn = sql.connectSQL())
             {
-                using ()
-                {
-
-                }
+                
             }
         }
         private void btFile_Click(object sender, EventArgs e)

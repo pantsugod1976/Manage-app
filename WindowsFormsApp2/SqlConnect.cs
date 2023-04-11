@@ -11,7 +11,7 @@ namespace WindowsFormsApp2
     {
         public SqlConnection connectSQL()
         {
-            string servername = "DESKTOP-JG4B0FR\\SQLEXPRESS";
+            string servername = "LAPTOP-U8NL2OBT\\SQLEXPRESS";
             string database = "test";
             string connect_string = String.Format("server = {0}; database = {1}; integrated security = true", servername, database);
             SqlConnection conn = new SqlConnection(connect_string);
