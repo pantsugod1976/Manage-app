@@ -103,11 +103,17 @@ namespace WindowsFormsApp2
             }
             using (StreamWriter sw = new StreamWriter(folderPath + "\\" + folderName, false, Encoding.UTF8))
             {
-                foreach (var col in dt.Columns)
+                for (int i = 0; i < dt.Columns.Count; ++i)
                 {
-                    sw.Write(col.ToString()+",");
+                    if (i < dt.Columns.Count - 1)
+                    {
+                        sw.Write(dt.Columns[i].ColumnName + ",");
+                    }
+                    else
+                    {
+                        sw.Write(dt.Columns[i].ColumnName);
+                    }
                 }
-                sw.Write(",");
                 sw.Write(sw.NewLine);
                 foreach (DataRow row in dt.Rows)
                 {
@@ -150,7 +156,7 @@ namespace WindowsFormsApp2
             }
             try
             {
-                string query_TN = "SELECT question.ID, question.Noi_dung, question.Hoc_phan, question.Kieu_cau_hoi, trac_nghiem.A, trac_nghiem.B, trac_nghiem.C, trac_nghiem.D,trac_nghiem.Diem FROM question INNER JOIN trac_nghiem ON question.ID = trac_nghiem.ID_question";
+                string query_TN = "SELECT question.ID, question.Noi_dung, question.Hoc_phan, question.Kieu_cau_hoi, trac_nghiem.A, trac_nghiem.B, trac_nghiem.C, trac_nghiem.D, trac_nghiem.Lua_chon, trac_nghiem.Diem FROM question INNER JOIN trac_nghiem ON question.ID = trac_nghiem.ID_question";
                 string query_TL = "SELECT question.ID, question.Noi_dung, question.Hoc_phan, question.Kieu_cau_hoi, tu_luan.Diem FROM question INNER JOIN tu_luan ON question.ID = tu_luan.ID_question";
                 FolderBrowserDialog choofdlog = new FolderBrowserDialog();
                 choofdlog.ShowDialog();

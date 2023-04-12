@@ -66,7 +66,7 @@ namespace WindowsFormsApp2
         }
         private void GetQuestion()
         {
-            string query = "SELECT * FROM question WHERE Hoc_phan = N\'" + cbSubject.SelectedItem.ToString() + "\' AND Kieu_cau_hoi = N\'" + cbType.SelectedItem.ToString() + "\'";
+            string query = "SELECT * FROM question WHERE Hoc_phan = N\'" + cbSubject.SelectedText + "\' AND Kieu_cau_hoi = N\'" + cbType.SelectedText + "\'";
             using (SqlConnection conn = sql.connectSQL())
             {
                 conn.Open();
