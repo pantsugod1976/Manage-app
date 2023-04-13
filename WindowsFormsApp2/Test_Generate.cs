@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using Microsoft.SqlServer.Server;
+using System.IO;
 
 namespace WindowsFormsApp2
 {
@@ -102,10 +103,50 @@ namespace WindowsFormsApp2
             CB_Type();
             dgvList.AllowUserToAddRows = false;
         }
-
+        private DataTable CreateTable(string query, SqlConnection conn)
+        {
+            DataTable dt = new DataTable();
+            using (SqlDataAdapter adt = new SqlDataAdapter(query, conn))
+            {
+                adt.Fill(dt);
+            }
+            return dt;
+        }
+        private void WriteTxt(DataTable dt, string FolderPath, string FolderName)
+        {
+            int i = 1;
+            using (StreamWriter sw = new StreamWriter(FolderPath + "\\" + FolderName, false, Encoding.UTF8))
+            {
+                foreach(DataRow r in dt.Rows)
+                {
+                    sw.WriteLine("Câu " + i + r["Diem"] + ": " + r["Noi_dung"]);
+                    sw.WriteLine("A." + r["A"] + "\t\t" + "B." + r["B"]);
+                }
+            }
+        }
         private void btPreview_Click(object sender, EventArgs e)
         {
-            
+            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+            folderBrowser.ShowDialog();
+            string FolderPath = folderBrowser.SelectedPath;
+            if (!Directory.Exists(FolderPath))
+            {
+                Directory.CreateDirectory(FolderPath);
+            }
+            string fileName = "test.txt";
+            string query;
+            if (cbType.Text.Equals("trắc nghiệm", StringComparison.OrdinalIgnoreCase))
+            {
+                foreach(string id in list)
+                {
+                    query = "SELECT question.Noi_dung, trac_nghiem.A, trac_nghiem.B, trac_nghiem.C, trac_nghiem.D, trac_nghiem.Diem FROM question INNER JOIN trac_nghiem WHERE question.ID = trac_nghiem.ID_question";
+                    using (SqlConnection conn = sql.connectSQL())
+                    {
+                        conn.Open();
+                        
+                    }
+                }
+            }
         }
 
         private void dgvList_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -128,7 +169,7 @@ namespace WindowsFormsApp2
         {
             if (e.KeyChar == (char)Keys.Enter)
             {
-                if (tbSearch.Text == null)
+                if (tbSearch.Text == null || tbSearch.Text == "")
                 {
                     return;
                 }
