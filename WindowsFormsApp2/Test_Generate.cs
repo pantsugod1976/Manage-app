@@ -119,8 +119,10 @@ namespace WindowsFormsApp2
             {
                 foreach(DataRow r in dt.Rows)
                 {
+                    if(cbType.Text.Equals())
                     sw.WriteLine("Câu " + i + r["Diem"] + ": " + r["Noi_dung"]);
                     sw.WriteLine("A." + r["A"] + "\t\t" + "B." + r["B"]);
+                    sw.WriteLine("C." + r["C"] + "\t\t" + "D." + r["D"]);
                 }
             }
         }
