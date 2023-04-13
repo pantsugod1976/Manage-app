@@ -119,12 +119,16 @@ namespace WindowsFormsApp2
             {
                 foreach(DataRow r in dt.Rows)
                 {
-                    if(cbType.Text.Equals())
-                    sw.WriteLine("Câu " + i + r["Diem"] + ": " + r["Noi_dung"]);
-                    sw.WriteLine("A." + r["A"] + "\t\t" + "B." + r["B"]);
-                    sw.WriteLine("C." + r["C"] + "\t\t" + "D." + r["D"]);
+                    sw.WriteLine("Câu " + i + "(" + r["Diem"] + "): " + r["Noi_dung"]);
+                    if(cbType.Text.Equals("trắc nghiệm", StringComparison.OrdinalIgnoreCase))
+                    {
+                        sw.WriteLine("A." + r["A"] + "\t\t" + "B." + r["B"]);
+                        sw.WriteLine("C." + r["C"] + "\t\t" + "D." + r["D"]);
+                    }
+                    i++;
                 }
             }
+            MessageBox.Show("Create test.txt successful", "", MessageBoxButtons.OK);
         }
         private void btPreview_Click(object sender, EventArgs e)
         {
@@ -139,15 +143,24 @@ namespace WindowsFormsApp2
             string query;
             if (cbType.Text.Equals("trắc nghiệm", StringComparison.OrdinalIgnoreCase))
             {
-                foreach(string id in list)
+                query = "SELECT question.Noi_dung, trac_nghiem.A, trac_nghiem.B, trac_nghiem.C, trac_nghiem.D, trac_nghiem.Diem FROM question, trac_nghiem WHERE question.ID = trac_nghiem.ID_question AND question.ID IN (";
+            }
+            else 
+            {
+                query = "SELECT question.Noi_dung, tu_luan.Diem FROM question, tu_luan WHERE question.ID = tu_luan.ID_question AND question.ID IN (";
+            }
+            foreach(string id in list)
+            {
+                if (id.Equals(list.Last()))
                 {
-                    query = "SELECT question.Noi_dung, trac_nghiem.A, trac_nghiem.B, trac_nghiem.C, trac_nghiem.D, trac_nghiem.Diem FROM question INNER JOIN trac_nghiem WHERE question.ID = trac_nghiem.ID_question";
-                    using (SqlConnection conn = sql.connectSQL())
-                    {
-                        conn.Open();
-                        
-                    }
+                    query += id + ")";
                 }
+                else query += id + ", ";
+            }
+            MessageBox.Show(query);
+            using (SqlConnection conn = sql.connectSQL())
+            {
+                WriteTxt(CreateTable(query, conn), FolderPath, fileName);
             }
         }
 
