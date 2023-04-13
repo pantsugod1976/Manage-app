@@ -14,14 +14,13 @@ namespace WindowsFormsApp2
 {
     public partial class ManageQues : Form
     {
+        SqlConnect sqlConnect = new SqlConnect();
+        DataTable table = new DataTable();
+        string description, type, subject;
         public ManageQues()
         {
             InitializeComponent();
         }
-        SqlConnect sqlConnect = new SqlConnect();
-        DataTable table = new DataTable();
-        DataTable tmp_DT = new DataTable();
-        DataTable prev_table = new DataTable();
         private void GetData()
         {
             string query = "SELECT * FROM question";
@@ -91,9 +90,6 @@ namespace WindowsFormsApp2
             Generate_Table();
             CB_Subject();
             CB_Type();
-            tmp_DT = table;
-            prev_table = tmp_DT;
-            dataGridView1.DataSource = prev_table;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -101,63 +97,26 @@ namespace WindowsFormsApp2
             Application.OpenForms["HomePage"].Show();
             this.Close();
         }
-
-        private void GetData(string query)
-        {
-            using (SqlConnection conn = sqlConnect.connectSQL())
-            {
-                using (SqlDataAdapter adt = new SqlDataAdapter(query, conn))
-                {
-                    adt.Fill(tmp_DT);
-                }
-            }
-        }
         private void tbSearch_TextChanged(object sender, EventArgs e)
         {
-            if (tbSearch.Text == null)
-            {
-                prev_table = tmp_DT;
-                dataGridView1.Refresh();
-            }
-            if (tbSearch.Text == "")
-            {
-                dataGridView.DataSource = prev_table;
-                dataGridView.Refresh();
-                return;
-            }
-            string query;
-            tmp_DT.Clear();
-            if ((cbSubject.SelectedItem == null || cbSubject.SelectedItem.ToString() == "") && (cbType.SelectedItem == null || cbType.SelectedItem.ToString() == ""))
-            {
-                query = String.Format("SELECT * FROM question WHERE Noi_dung LIKE N\'%{0}%\'", tbSearch.Text);
-            }
-            else
-            {
-                if (cbSubject.SelectedItem == null || cbSubject.SelectedItem.ToString() == "")
-                {
-                    query = String.Format("SELECT * FROM question WHERE Noi_dung = LIKE N\'%{1}%\' AND Kieu_cau_hoi = N\'{1}\'", tbSearch.Text, cbType.SelectedItem.ToString());
-                }
-                else
-                {
-                    if (cbType.SelectedItem == null || cbType.SelectedItem.ToString() == "")
-                    {
-                        query = String.Format("SELECT * FROM question WHERE Noi_dung LIKE N\'%{0}%\' AND Hoc_phan = N\'{1}\'", tbSearch.Text, cbSubject.SelectedItem.ToString());
-                    }
-                    else
-                    {
-                        query = String.Format("SELECT * FROM question WHERE Noi_dung LIKE N\'%{1}%\' AND Kieu_cau_hoi = N\'{0}\' AND Hoc_phan = N\'{2}\'", cbType.SelectedItem.ToString(), tbSearch.Text, cbSubject.SelectedItem.ToString());
-                    }
-
-                }
-            }
-            GetData(query);
-            dataGridView.DataSource = tmp_DT;
-            dataGridView.Refresh();
+            description = tbSearch.Text;
         }
 
         private void btSearch_Click(object sender, EventArgs e)
         {
-            
+            string query = string.Format("SELECT * FROM question WHERE Noi_dung LIKE COALESCE(NULLIF(N\'{0}%\', ''), Noi_dung)\n" +
+                                        " AND Hoc_phan = COALESCE(NULLIF(N\'{1}\', ''), Hoc_phan)\n" +
+                                        " AND Kieu_cau_hoi = COALESCE(NULLIF(N\'{2}\',''), Kieu_cau_hoi)", description, subject, type);
+            using (SqlConnection conn = sqlConnect.connectSQL()) 
+            {
+                conn.Open(); 
+                using (SqlDataAdapter adt = new SqlDataAdapter(query, conn))
+                {
+                    table.Clear();
+                    adt.Fill(table);
+                }
+            }
+            dataGridView.Refresh();
         }
 
         private void DeleteRecord(string id, string type)
@@ -214,95 +173,27 @@ namespace WindowsFormsApp2
 
         private void cbType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbType.SelectedItem == null)
-            {
-                prev_table = tmp_DT;
-                dataGridView1.Refresh();
-            }
-            string query;
-            prev_table = tmp_DT;
-            tmp_DT.Clear();
-            if(tbSearch.Text == "" && (cbSubject.SelectedItem == null || cbSubject.SelectedItem.ToString() == ""))
-            {
-                query = String.Format("SELECT * FROM question WHERE Kieu_cau_hoi = N\'{0}\'", cbType.SelectedItem.ToString());
-            }
-            else
-            {
-                if (cbSubject.SelectedItem == null || cbSubject.SelectedItem.ToString() == "")
-                {
-                    query = String.Format("SELECT * FROM question WHERE Noi_dung = LIKE N\'%{1}%\' AND Kieu_cau_hoi = N\'{1}\'", tbSearch.Text, cbType.SelectedItem.ToString());
-                }
-                else
-                {
-                    if (tbSearch.Text == "")
-                    {
-                        query = String.Format("SELECT * FROM question WHERE Kieu_cau_hoi = N\'{0}\' AND Hoc_phan = N\'{1}\'", cbType.SelectedItem.ToString(), cbSubject.SelectedItem.ToString());
-                    }
-                    else
-                    {
-                        query = String.Format("SELECT * FROM question WHERE Noi_dung LIKE N\'%{1}%\' AND Kieu_cau_hoi = N\'{0}\' AND Hoc_phan = N\'{2}\'", cbType.SelectedItem.ToString(), tbSearch.Text, cbSubject.SelectedItem.ToString());
-                    }
+            type = cbType.SelectedItem.ToString();
+        }
 
-                }
-            }
-            GetData(query);
-            dataGridView.DataSource = tmp_DT;
-            dataGridView.Refresh();
+        private void cbType_TextChanged(object sender, EventArgs e)
+        {
+            type = cbType.Text;
+        }
+
+        private void cbSubject_TextChanged(object sender, EventArgs e)
+        {
+            subject = cbSubject.Text;
         }
 
         private void cbSubject_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(cbSubject.SelectedItem == null)
-            {
-                prev_table = tmp_DT;
-                dataGridView1.Refresh();
-            }
-            if (cbSubject.SelectedItem.ToString() == "")
-            {
-                dataGridView.DataSource = prev_table;
-                dataGridView.Refresh();
-                return;
-            }
-            string query;
-            prev_table = tmp_DT;
-            tmp_DT.Clear();
-            if (tbSearch.Text == "" && (cbType.SelectedItem == null || cbType.SelectedItem.ToString() == ""))
-            {
-                query = String.Format("SELECT * FROM question WHERE Hoc_phan = N\'{0}\'", cbType.SelectedItem.ToString());
-            }
-            else
-            {
-                if (cbType.SelectedItem == null || cbType.SelectedItem.ToString() == "")
-                {
-                    query = String.Format("SELECT * FROM question WHERE Noi_dung = LIKE N\'%{1}%\' AND Hoc_phan = N\'{1}\'", tbSearch.Text, cbSubject.SelectedItem.ToString());
-                }
-                else
-                {
-                    if (tbSearch.Text == "")
-                    {
-                        query = String.Format("SELECT * FROM question WHERE Kieu_cau_hoi = N\'{0}\' AND Hoc_phan = N\'{1}\'", cbType.SelectedItem.ToString(), cbSubject.SelectedItem.ToString());
-                    }
-                    else
-                    {
-                        query = String.Format("SELECT * FROM question WHERE Noi_dung LIKE N\'%{1}%\' AND Kieu_cau_hoi = N\'{0}\' AND Hoc_phan = N\'{2}\'", cbType.SelectedItem.ToString(), tbSearch.Text, cbSubject.SelectedItem.ToString());
-                    }
-                }  
-            }
-            GetData(query);
-            dataGridView.DataSource = tmp_DT;
-            dataGridView.Refresh();
+            subject = cbSubject.SelectedItem.ToString();
         }
 
         private void cbType_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if(e.KeyChar == (char)Keys.Enter)
-            {
-                if (cbType.SelectedItem == null)
-                {
-                    dataGridView.DataSource = prev_table;
-                    dataGridView.Refresh();
-                }
-            }
+
         }
     }
 }

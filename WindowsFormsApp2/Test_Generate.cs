@@ -66,13 +66,13 @@ namespace WindowsFormsApp2
         }
         private void GetQuestion()
         {
-            string query = "SELECT * FROM question WHERE Hoc_phan = N\'" + cbSubject.SelectedText + "\' AND Kieu_cau_hoi = N\'" + cbType.SelectedText + "\'";
+            string query = "SELECT * FROM question WHERE Hoc_phan = N\'" + cbSubject.Text + "\' AND Kieu_cau_hoi = N\'" + cbType.Text + "\'";
             using (SqlConnection conn = sql.connectSQL())
             {
                 conn.Open();
                 using (SqlDataAdapter ad = new SqlDataAdapter(query, conn))
                 {
-                    
+                    dt.Clear();
                     ad.Fill(dt);
                 }
             }
@@ -86,18 +86,21 @@ namespace WindowsFormsApp2
                 return;
             }
             GetQuestion();
-            DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
-            dataGridViewCheckBoxColumn.ValueType = typeof(bool);
-            dataGridViewCheckBoxColumn.Name = "Check";
-            dataGridViewCheckBoxColumn.HeaderText = "Add";
-            dgvList.Columns.Add(dataGridViewCheckBoxColumn);
-            dgvList.AllowUserToAddRows = false;
+            if (!dgvList.Columns.Contains("Check"))
+            {
+                DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
+                dataGridViewCheckBoxColumn.ValueType = typeof(bool);
+                dataGridViewCheckBoxColumn.Name = "Check";
+                dataGridViewCheckBoxColumn.HeaderText = "Add";
+                dgvList.Columns.Add(dataGridViewCheckBoxColumn);
+            }
         }
 
         private void Test_Generate_Load(object sender, EventArgs e)
         {
             CB_Subject();
             CB_Type();
+            dgvList.AllowUserToAddRows = false;
         }
 
         private void btPreview_Click(object sender, EventArgs e)

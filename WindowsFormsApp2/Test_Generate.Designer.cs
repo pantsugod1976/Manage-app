@@ -73,7 +73,7 @@
             // 
             // tbCancel
             // 
-            this.tbCancel.Location = new System.Drawing.Point(825, 421);
+            this.tbCancel.Location = new System.Drawing.Point(881, 421);
             this.tbCancel.Name = "tbCancel";
             this.tbCancel.Size = new System.Drawing.Size(75, 23);
             this.tbCancel.TabIndex = 4;
@@ -111,7 +111,7 @@
             this.dgvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvList.Location = new System.Drawing.Point(392, 58);
             this.dgvList.Name = "dgvList";
-            this.dgvList.Size = new System.Drawing.Size(508, 350);
+            this.dgvList.Size = new System.Drawing.Size(564, 350);
             this.dgvList.TabIndex = 10;
             this.dgvList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvList_CellContentClick);
             // 
@@ -147,7 +147,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(912, 456);
+            this.ClientSize = new System.Drawing.Size(968, 456);
             this.Controls.Add(this.tbSearch);
             this.Controls.Add(this.lbSearch);
             this.Controls.Add(this.btPreview);
