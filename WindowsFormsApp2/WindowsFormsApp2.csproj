@@ -68,12 +68,6 @@
       <DependentUpon>ImportData.cs</DependentUpon>
     </Compile>
     <Compile Include="SqlConnect.cs" />
-    <Compile Include="Control_test.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Control_test.Designer.cs">
-      <DependentUpon>Control_test.cs</DependentUpon>
-    </Compile>
     <Compile Include="HomePage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,9 +96,6 @@
     </Compile>
     <EmbeddedResource Include="AddQuestion.resx">
       <DependentUpon>AddQuestion.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Control_test.resx">
-      <DependentUpon>Control_test.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditQues.resx">
       <DependentUpon>EditQues.cs</DependentUpon>

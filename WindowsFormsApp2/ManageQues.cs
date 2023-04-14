@@ -186,6 +186,11 @@ namespace WindowsFormsApp2
             subject = cbSubject.Text;
         }
 
+        private void ManageQues_VisibleChanged(object sender, EventArgs e)
+        {
+            dataGridView.Refresh();
+        }
+
         private void cbSubject_SelectedIndexChanged(object sender, EventArgs e)
         {
             subject = cbSubject.SelectedItem.ToString();

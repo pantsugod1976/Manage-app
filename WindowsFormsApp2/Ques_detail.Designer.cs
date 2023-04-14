@@ -55,7 +55,6 @@
             this.tbPoint.Location = new System.Drawing.Point(679, 272);
             this.tbPoint.Multiline = true;
             this.tbPoint.Name = "tbPoint";
-            this.tbPoint.ReadOnly = true;
             this.tbPoint.Size = new System.Drawing.Size(137, 43);
             this.tbPoint.TabIndex = 18;
             // 
@@ -84,7 +83,6 @@
             this.tbSubject.Location = new System.Drawing.Point(679, 160);
             this.tbSubject.Multiline = true;
             this.tbSubject.Name = "tbSubject";
-            this.tbSubject.ReadOnly = true;
             this.tbSubject.Size = new System.Drawing.Size(137, 45);
             this.tbSubject.TabIndex = 14;
             // 
@@ -93,7 +91,6 @@
             this.tbD.Location = new System.Drawing.Point(366, 85);
             this.tbD.Multiline = true;
             this.tbD.Name = "tbD";
-            this.tbD.ReadOnly = true;
             this.tbD.Size = new System.Drawing.Size(218, 34);
             this.tbD.TabIndex = 7;
             // 
@@ -102,7 +99,6 @@
             this.tbB.Location = new System.Drawing.Point(366, 28);
             this.tbB.Multiline = true;
             this.tbB.Name = "tbB";
-            this.tbB.ReadOnly = true;
             this.tbB.Size = new System.Drawing.Size(218, 34);
             this.tbB.TabIndex = 6;
             // 
@@ -111,7 +107,6 @@
             this.tbC.Location = new System.Drawing.Point(45, 84);
             this.tbC.Multiline = true;
             this.tbC.Name = "tbC";
-            this.tbC.ReadOnly = true;
             this.tbC.Size = new System.Drawing.Size(218, 34);
             this.tbC.TabIndex = 5;
             // 
@@ -120,7 +115,6 @@
             this.tbA.Location = new System.Drawing.Point(45, 28);
             this.tbA.Multiline = true;
             this.tbA.Name = "tbA";
-            this.tbA.ReadOnly = true;
             this.tbA.Size = new System.Drawing.Size(218, 34);
             this.tbA.TabIndex = 4;
             // 
@@ -134,6 +128,7 @@
             this.rbD.TabStop = true;
             this.rbD.Text = "D";
             this.rbD.UseVisualStyleBackColor = true;
+            this.rbD.CheckedChanged += new System.EventHandler(this.rbD_CheckedChanged);
             // 
             // lbSubject
             // 
@@ -158,7 +153,6 @@
             this.tbDescription.Location = new System.Drawing.Point(12, 46);
             this.tbDescription.Multiline = true;
             this.tbDescription.Name = "tbDescription";
-            this.tbDescription.ReadOnly = true;
             this.tbDescription.Size = new System.Drawing.Size(586, 96);
             this.tbDescription.TabIndex = 11;
             // 
@@ -172,6 +166,7 @@
             this.rbC.TabStop = true;
             this.rbC.Text = "C";
             this.rbC.UseVisualStyleBackColor = true;
+            this.rbC.CheckedChanged += new System.EventHandler(this.rbC_CheckedChanged);
             // 
             // rbB
             // 
@@ -183,6 +178,7 @@
             this.rbB.TabStop = true;
             this.rbB.Text = "B";
             this.rbB.UseVisualStyleBackColor = true;
+            this.rbB.CheckedChanged += new System.EventHandler(this.rbB_CheckedChanged);
             // 
             // lbPoint
             // 
@@ -220,6 +216,7 @@
             this.rbA.TabStop = true;
             this.rbA.Text = "A";
             this.rbA.UseVisualStyleBackColor = true;
+            this.rbA.CheckedChanged += new System.EventHandler(this.rbA_CheckedChanged);
             // 
             // lbType
             // 

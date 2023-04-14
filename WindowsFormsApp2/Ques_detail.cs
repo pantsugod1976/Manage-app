@@ -16,6 +16,7 @@ namespace WindowsFormsApp2
         string ID;
         string Lua_chon;
         SqlConnect sql = new SqlConnect();
+        string new_choice;
         public Ques_detail(string id, string t)
         {
             InitializeComponent();
@@ -102,17 +103,70 @@ namespace WindowsFormsApp2
 
         private void btEdit_Click(object sender, EventArgs e)
         {
-            EditQues frm;
-            if(tbType.Text.Equals("Tự luận", StringComparison.OrdinalIgnoreCase))
+            using (SqlConnection con = sql.connectSQL())
             {
-               frm = new EditQues(ID, tbDescription.Text, tbSubject.Text, tbPoint.Text, tbType.Text);
+                con.Open();
+                using (SqlCommand cmd = con.CreateCommand())
+                {
+                    if (tbType.Text.Equals("trắc nghiệm", StringComparison.OrdinalIgnoreCase))
+                    {
+                        cmd.CommandText = "BEGIN TRANSACTION;\n" +
+                        "UPDATE question " +
+                        "SET question.Noi_dung = @description, question.Hoc_phan = @subject FROM question, trac_nghiem " +
+                        "WHERE question.ID = trac_nghiem.ID_question AND question.ID = @ID;\n\n" +
+
+                        "UPDATE trac_nghiem " +
+                        "SET trac_nghiem.A = @A, trac_nghiem.B = @B, trac_nghiem.C = @C, trac_nghiem.D = @D, trac_nghiem.Lua_chon = @choice, trac_nghiem.Diem = @point " +
+                        "FROM question, trac_nghiem " +
+                        "WHERE question.ID = trac_nghiem.ID_question AND question.ID = @ID;\n" +
+                        "COMMIT;";
+                        cmd.Parameters.AddWithValue("@A", tbA.Text);
+                        cmd.Parameters.AddWithValue("@B", tbB.Text);
+                        cmd.Parameters.AddWithValue("@C", tbC.Text);
+                        cmd.Parameters.AddWithValue("@D", tbD.Text);
+                        cmd.Parameters.AddWithValue("@choice", new_choice);
+
+                    }
+                    else
+                    {
+                        cmd.CommandText = "BEGIN TRANSACTION;\n" +
+                        "UPDATE question " +
+                        "SET question.Noi_dung = @description, question.Hoc_phan = @subject FROM question, tu_luan " +
+                        "WHERE question.ID = tu_luan.ID_question AND question.ID = @ID;\n\n" +
+
+                        "UPDATE tu_luan " +
+                        "SET tu_luan.Diem = @point FROM question, tu_luan " +
+                        "WHERE question.ID = tu_luan.ID_question AND question.ID = @ID;\n" +
+                        " COMMIT;";
+                    }
+                    cmd.Parameters.AddWithValue("@ID", ID);
+                    cmd.Parameters.AddWithValue("@description", tbDescription.Text);
+                    cmd.Parameters.AddWithValue("@point", tbPoint.Text);
+                    cmd.Parameters.AddWithValue("@subject", tbSubject.Text);
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Thay đổi thông tin thành công\n", "", MessageBoxButtons.OK);
+                }
             }
-            else
-            {
-               frm = new EditQues(ID, tbDescription.Text, tbSubject.Text, tbPoint.Text, tbType.Text, tbA.Text, tbB.Text, tbC.Text, tbD.Text, Lua_chon);
-            }
-            frm.Show();
-            this.Hide();
+        }
+
+        private void rbA_CheckedChanged(object sender, EventArgs e)
+        {
+            new_choice = "A";
+        }
+
+        private void rbB_CheckedChanged(object sender, EventArgs e)
+        {
+            new_choice = "B";
+        }
+
+        private void rbC_CheckedChanged(object sender, EventArgs e)
+        {
+            new_choice = "C";
+        }
+
+        private void rbD_CheckedChanged(object sender, EventArgs e)
+        {
+            new_choice = "D";
         }
     }
 }

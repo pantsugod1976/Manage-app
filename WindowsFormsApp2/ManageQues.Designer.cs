@@ -122,7 +122,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(108, 23);
             this.button1.TabIndex = 9;
-            this.button1.Text = "button1";
+            this.button1.Text = "Thoát";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -143,6 +143,7 @@
             this.Name = "ManageQues";
             this.Text = "Form2";
             this.Load += new System.EventHandler(this.ManageQues_Load);
+            this.VisibleChanged += new System.EventHandler(this.ManageQues_VisibleChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
