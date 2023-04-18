@@ -72,7 +72,7 @@ namespace WindowsFormsApp2
                     cmd.CommandText = "delete from question where Kieu_cau_hoi = @type";
                     cmd.Parameters.AddWithValue("@type", cbType.SelectedText);
                     cmd.ExecuteNonQuery();
-                    if(cbType.SelectedText.Equals("trắc nghiệm", StringComparison.OrdinalIgnoreCase))
+                    if(cbType.Text.Equals("trắc nghiệm", StringComparison.OrdinalIgnoreCase))
                     {
                         cmd.CommandText =
                             "BEGIN TRANSACTION;\n\n" +
